@@ -1,20 +1,72 @@
 [
   {
-    "id": "cisco",
-    "company": "Cisco",
-    "role": "Software Engineering Intern",
-    "period": "May 2024 – Aug 2024",
-    "description": "Built internal tooling for network configuration management. Automated deployment pipelines reducing manual steps by 60%. Worked on distributed systems handling millions of daily events.",
-    "tags": ["Python", "Go", "Kubernetes", "Kafka"],
-    "logo": "/images/projects/cisco.png"
+    "id": "wayfinderai",
+    "company": "NU Launch Lab — WayfinderAI",
+    "role": "Co-Lead, Computer Vision Engineer",
+    "period": "Jan 2026 – Present",
+    "emoji": "🗺️",
+    "description": "Led a 3-person team to deliver a working AI indoor navigation system from scratch, shipping a live Vercel demo within 8 weeks. Won 1st Place at Hack@URI AI Track out of 30+ teams. Fine-tuned Qwen3-VL-8B via 3-stage LoRA + GRPO for floorplan-to-navigation-graph generation; deployed YOLOv8 shelf detection (mAP@50 0.893) and EasyOCR aisle sign recognition. Built graph-based pathfinding using NetworkX and Dijkstra's algorithm delivered as a React PWA with real-time map overlays.",
+    "tags": ["Python", "Qwen3-VL-8B", "YOLOv8", "LoRA", "GRPO", "React", "NetworkX", "EasyOCR"],
+    "logo": ""
   },
   {
-    "id": "northeastern",
-    "company": "Northeastern University — Robotics Lab",
-    "role": "Undergraduate Researcher",
-    "period": "Sep 2023 – Present",
-    "description": "Researching multi-agent coordination for autonomous robot swarms. Implemented perception pipeline using depth cameras and point cloud processing.",
-    "tags": ["ROS2", "Python", "C++", "SLAM"],
+    "id": "cubesat",
+    "company": "Northeastern Satellite Lab — CubeSat Star Tracker",
+    "role": "Software Engineer — Computer Vision",
+    "period": "Jan 2026 – Present",
+    "emoji": "🛰️",
+    "description": "Designed a centroid-based attitude determination pipeline in Python for Raspberry Pi with INT8 quantization, reducing model size by 75% while meeting strict satellite power constraints. Built a synthetic sky simulator using the 118,000+ star Hipparcos catalog to generate training data across varied sensor noise and orbital conditions, validated across 1,899 ISS-orbit passes.",
+    "tags": ["Python", "INT8 Quantization", "Raspberry Pi", "Computer Vision", "Hipparcos Catalog"],
+    "logo": ""
+  },
+  {
+    "id": "climate",
+    "company": "Climate Resilient Communities",
+    "role": "GIS Analyst",
+    "period": "Apr 2024 – Sept 2025",
+    "emoji": "🌍",
+    "description": "Built an ArcGIS Pro toolkit using SVM-based land classification and regression-based property valuation across 5+ urban districts, cutting manual climate risk assessment time by ~40%. Applied spatiotemporal clustering to vegetation, heat index, and emergency route data across 3 regions, producing prioritized risk maps adopted by city planning teams.",
+    "tags": ["ArcGIS Pro", "Python", "SVM", "Spatiotemporal Clustering", "GIS"],
+    "logo": ""
+  },
+  {
+    "id": "openlane",
+    "company": "Openlane",
+    "role": "Data Analyst",
+    "period": "Oct 2022 – Mar 2024",
+    "emoji": "📊",
+    "description": "Engineered ML-based data cleaning pipelines in Python using regression and KNN across 100,000+ records, raising dataset quality from 80% to 95%. Managed CRM workflows and data validation across 10+ major client accounts, contributing to 30% business growth through improved data reliability.",
+    "tags": ["Python", "Regression", "KNN", "SQL", "Pandas", "CRM"],
+    "logo": ""
+  },
+  {
+    "id": "uoft-ta",
+    "company": "University of Toronto",
+    "role": "Teaching Assistant / Learning Objects Assistant",
+    "period": "Sept 2021 – Aug 2022",
+    "emoji": "🎓",
+    "description": "Co-taught Data Visualization (Excel, Power BI) and built an R grading-automation script achieving 98% accuracy and 70% faster grading. Produced 20 Excel/VBA video tutorials for a management training program.",
+    "tags": ["R", "Excel", "Power BI", "VBA", "Data Visualization"],
+    "logo": ""
+  },
+  {
+    "id": "bear",
+    "company": "BEAR — Behavioural Economics in Action at Rotman",
+    "role": "Quantitative Research Assistant",
+    "period": "May 2021 – Sept 2021",
+    "emoji": "🧠",
+    "description": "Ran statistical analysis in Excel on behavioral experiment data, identifying and resolving bugs that improved dataset accuracy by 70%. Findings directly informed the reevaluation of research hypotheses.",
+    "tags": ["Excel", "Statistics", "Behavioural Economics", "Research"],
+    "logo": ""
+  },
+  {
+    "id": "varsity-blues",
+    "company": "University of Toronto Varsity Blues",
+    "role": "Data Analyst",
+    "period": "Oct 2020 – May 2021",
+    "emoji": "🏅",
+    "description": "Conducted traffic analysis with Google Analytics to optimize marketing strategy and ad timing. Increased website traffic and event registrations by up to 20% for varsity campaigns.",
+    "tags": ["Google Analytics", "Data Analysis", "Marketing", "Excel"],
     "logo": ""
   }
 ]

@@ -1,53 +1,59 @@
 [
   {
-    "id": "wayfinderai",
-    "title": "WayfinderAI",
-    "tagline": "LLM-powered campus navigation assistant",
-    "emoji": "🗺️",
-    "description": "Conversational AI that helps students navigate Northeastern's campus using natural language. Ask 'Where's the nearest quiet study spot near EXP?' and get a walking route, hours, and availability.",
-    "longDescription": "Built with a RAG pipeline over 500+ campus locations, rooms, dining hours, and event data. The backend uses FastAPI with streaming responses, and the frontend is a React chat UI. Embeddings are stored in a Pinecone vector database and updated nightly via a GitHub Actions scraper.",
+    "id": "apex-ai",
+    "title": "Apex AI",
+    "tagline": "Vision-only AI race engineer — no sensors, just video",
+    "emoji": "🏎️",
+    "description": "Upload any onboard karting or motorcycle lap video and Apex AI watches it like a race engineer. It finds every driving mistake with timestamps, highlights your best moments, and generates a professional coaching report — in seconds.",
+    "longDescription": "Built at the Voxel51 Hackathon (April 2026) with team NUPitlane. The pipeline runs Twelve Labs Pegasus for whole-video semantic analysis, then Groq LLaMA 3.3 70B to synthesize structured coaching output. Available as both a FiftyOne plugin and a standalone React web app. Won the hackathon.",
     "highlights": [
-      "RAG pipeline over 500+ campus locations with nightly data refresh",
-      "Streaming responses for near-instant first-token latency",
-      "Handles ambiguous queries with multi-turn clarification",
-      "Fallback to Northeastern's map API for real-time room availability"
+      "Watches the entire lap with Twelve Labs Pegasus — understands racing context, not just frames",
+      "Finds braking errors, missed apexes, wide exits, and throttle issues with exact timestamps",
+      "Generates performance scores (1–10) for Racing Line, Braking, and Throttle",
+      "Lap time loss estimates in tenths of seconds per mistake",
+      "Works for karting AND motorcycles — biking adds lean angle & body position analysis",
+      "50 free analyses/day on Twelve Labs free tier"
     ],
     "techBreakdown": {
-      "Backend": ["Python", "FastAPI", "LangChain", "OpenAI GPT-4o"],
-      "Data": ["Pinecone", "BeautifulSoup", "GitHub Actions"],
-      "Frontend": ["React", "Tailwind CSS", "Server-Sent Events"]
+      "Video AI": ["Twelve Labs Pegasus", "Marengo search"],
+      "LLM": ["Groq", "LLaMA 3.3 70B"],
+      "Backend": ["FastAPI", "Uvicorn", "Python"],
+      "Frontend": ["React 18", "TypeScript", "Vite", "Tailwind CSS"],
+      "Dataset & Plugin": ["Voxel51 FiftyOne"]
     },
-    "challenges": "The hardest part was handling ambiguous location names — Northeastern has 3 different 'Curry' buildings. I built a disambiguation layer that uses contextual clues (nearby landmarks, floor numbers) to resolve intent before hitting the vector store.",
-    "learnings": "Learned how RAG pipelines degrade gracefully vs. fail loudly. Streaming responses feel dramatically faster even with the same total latency. Also discovered that nightly scraping is fragile — moved to webhook-based updates for critical data.",
-    "tags": ["Python", "LangChain", "RAG", "OpenAI", "FastAPI", "Pinecone", "React"],
-    "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80",
-    "github": "https://github.com/Adityaagulatii",
+    "challenges": "Twelve Labs returns rich but unstructured observations. Getting Groq LLaMA to reliably extract valid JSON performance scores from those observations — without hallucinating metrics — required careful prompt engineering and a validation layer that retries on parse failure.",
+    "learnings": "Multimodal video AI is a fundamentally different abstraction than frame-by-frame CV. Pegasus understands racing strategy and driver intent, not just pixel motion. That semantic understanding is what makes the coaching useful rather than just technically correct.",
+    "tags": ["Twelve Labs", "Groq", "LLaMA", "FastAPI", "React", "TypeScript", "FiftyOne", "Python"],
+    "image": "/images/projects/apexai-thumb.png",
+    "demoGif": "/images/projects/apexai-demo.gif",
+    "github": "https://github.com/pankhuri0209/NUPitlane-PitlaneAI",
     "demo": "",
-    "featured": true
+    "featured": true,
+    "hackathon": "Voxel51 Hackathon · April 2026"
   },
   {
-    "id": "pitlaneai",
-    "title": "PitLane AI",
-    "tagline": "Real-time F1 race strategy predictor",
-    "emoji": "🏎️",
-    "description": "ML system that predicts optimal pit stop windows and tire strategies during live F1 races. Ingests real-time telemetry, weather data, and rival team strategies to recommend when to pit and on what compound.",
-    "longDescription": "The model is a gradient-boosted ensemble trained on 10 seasons of F1 lap data (~2M laps). It runs on WebSocket-fed telemetry during races and outputs probability distributions over pit windows every 3 laps. A React dashboard visualizes tire degradation curves and strategy scenarios in real time.",
+    "id": "edge-ai",
+    "title": "Edge AI Inference Engine",
+    "tagline": "On-device ML inference for resource-constrained hardware",
+    "emoji": "⚡",
+    "description": "Lightweight inference engine that runs quantized neural networks on microcontrollers and embedded Linux boards — no cloud, no connectivity required. Targets real-time object detection and keyword spotting at under 100mW.",
+    "longDescription": "The engine implements INT8 quantization, layer fusion, and memory-efficient operator scheduling to fit MobileNetV3 and Tiny-YOLO variants inside 512KB of RAM. Benchmarked across Raspberry Pi Zero 2W, STM32H7, and ESP32-S3. Achieved 28 FPS object detection on Pi Zero 2W — 3× faster than TFLite Micro baseline.",
     "highlights": [
-      "Trained on 10 seasons / 2M+ laps of F1 telemetry data",
-      "Live predictions update every 3 laps via WebSocket",
-      "Tire degradation model accurate to ±1.2 laps vs. actual pit windows",
-      "Safety car and weather event detection updates strategy mid-race"
+      "INT8 quantization + layer fusion — 3× faster than TFLite Micro baseline",
+      "28 FPS object detection on Raspberry Pi Zero 2W (512MB RAM)",
+      "Runs on STM32H7 and ESP32-S3 with <100mW power draw",
+      "Custom memory allocator reduces peak RAM by 40% vs. naive approach"
     ],
     "techBreakdown": {
-      "ML": ["Python", "XGBoost", "scikit-learn", "PyTorch"],
-      "Backend": ["FastAPI", "WebSocket", "Redis"],
-      "Frontend": ["React", "Recharts", "Tailwind CSS"],
-      "Data": ["F1 API", "OpenWeather API", "Pandas"]
+      "Core Engine": ["C++", "CMake", "SIMD intrinsics"],
+      "ML": ["ONNX", "INT8 quantization", "TFLite Micro"],
+      "Targets": ["Raspberry Pi Zero 2W", "STM32H7", "ESP32-S3"],
+      "Tooling": ["Python", "NumPy", "pytest", "GitHub Actions"]
     },
-    "challenges": "F1 data is notoriously messy — missing sectors, lap time anomalies from red flags, and inconsistent tire age reporting across teams. I spent 2 weeks just on data cleaning pipelines before the model training could start.",
-    "learnings": "Real-time ML is a different discipline from batch ML. The hardest constraint isn't accuracy — it's latency. I learned to profile and prune features based on inference time, not just model score.",
-    "tags": ["Python", "PyTorch", "XGBoost", "WebSocket", "React", "F1 API"],
-    "image": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80",
+    "challenges": "Memory layout on microcontrollers is extremely constrained — no heap fragmentation allowed. I built a static arena allocator that packs layer activations into a single contiguous buffer, reusing memory across layers where data flow permits.",
+    "learnings": "Low-level optimization is mostly about understanding your target's memory hierarchy. Cache misses dominate latency on embedded Cortex-A cores, not arithmetic. Rearranging tensor layout gave a bigger speedup than any algorithmic change.",
+    "tags": ["C++", "ONNX", "Embedded", "ESP32", "Raspberry Pi", "ML Inference"],
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
     "github": "https://github.com/Adityaagulatii",
     "demo": "",
     "featured": true
@@ -80,32 +86,6 @@
     "featured": true
   },
   {
-    "id": "star-tracker",
-    "title": "Star Tracker Mount",
-    "tagline": "Motorized equatorial mount for astrophotography",
-    "emoji": "🔭",
-    "description": "Precision motorized telescope mount that compensates for Earth's rotation, enabling long-exposure astrophotography without star trails. Controlled via custom firmware on an ESP32.",
-    "longDescription": "The mount uses two stepper motors on RA and Dec axes, driven by a TMC2209 driver for near-silent operation. The ESP32 firmware reads a GPS module for precise sidereal rate calculation and supports bluetooth control from a custom iOS shortcut. At 300mm focal length, it holds stars as points for 60+ second exposures.",
-    "highlights": [
-      "GPS-synchronized sidereal tracking rate accurate to <1 arcsec/min",
-      "Silent TMC2209 stepper drivers — no vibration during exposures",
-      "60+ second exposures at 300mm focal length without star trails",
-      "Bluetooth control via custom iOS shortcut app"
-    ],
-    "techBreakdown": {
-      "Firmware": ["C++", "ESP32", "Arduino framework"],
-      "Hardware": ["TMC2209", "NEMA 17 steppers", "GPS module"],
-      "Design": ["Fusion 360", "Custom PCB (KiCad)", "3D Printing"]
-    },
-    "challenges": "The biggest challenge was mechanical backlash in the worm gear causing periodic error — a slow oscillation in tracking visible at high magnification. Solved it with a PEC (Periodic Error Correction) routine that measures and pre-compensates for the gear's error signature.",
-    "learnings": "Embedded systems demand extreme resource discipline. Running GPS parsing, stepper control, and BLE simultaneously on an ESP32 required careful task prioritization with FreeRTOS to avoid jitter in the tracking loop.",
-    "tags": ["C++", "ESP32", "FreeRTOS", "CAD", "PCB Design", "Embedded"],
-    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",
-    "github": "https://github.com/Adityaagulatii",
-    "demo": "",
-    "featured": false
-  },
-  {
     "id": "network-automation",
     "title": "Cisco Network Automation",
     "tagline": "Config management & deployment pipeline for enterprise networks",
@@ -124,8 +104,8 @@
       "Networking": ["NETCONF", "YANG models", "Cisco IOS-XE"],
       "Observability": ["Grafana", "Prometheus"]
     },
-    "challenges": "Network devices don't have uniform APIs — some supported NETCONF, others only SSH with screen-scraping. Building a unified abstraction layer that worked across 4 different device generations was architecturally the most interesting part of the project.",
-    "learnings": "Enterprise infrastructure engineering is 80% backwards compatibility. I learned to design abstractions that accommodate legacy constraints without leaking them into the core logic — and the discipline of writing ops-friendly code that fails loudly and recovers cleanly.",
+    "challenges": "Network devices don't have uniform APIs — some supported NETCONF, others only SSH with screen-scraping. Building a unified abstraction layer that worked across 4 different device generations was architecturally the most interesting part.",
+    "learnings": "Enterprise infrastructure engineering is 80% backwards compatibility. I learned to design abstractions that accommodate legacy constraints without leaking them into the core logic.",
     "tags": ["Python", "Go", "Kubernetes", "Kafka", "NETCONF", "Grafana"],
     "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
     "github": "https://github.com/Adityaagulatii",
@@ -133,31 +113,30 @@
     "featured": true
   },
   {
-    "id": "edge-ai",
-    "title": "Edge AI Inference Engine",
-    "tagline": "On-device ML inference for resource-constrained hardware",
-    "emoji": "⚡",
-    "description": "Lightweight inference engine that runs quantized neural networks on microcontrollers and embedded Linux boards — no cloud, no connectivity required. Targets real-time object detection and keyword spotting at under 100mW.",
-    "longDescription": "The engine implements INT8 quantization, layer fusion, and memory-efficient operator scheduling to fit MobileNetV3 and Tiny-YOLO variants inside 512KB of RAM. Benchmarked across Raspberry Pi Zero 2W, STM32H7, and ESP32-S3. Achieved 28 FPS object detection on Pi Zero 2W — 3× faster than TFLite Micro baseline.",
+    "id": "star-tracker",
+    "title": "Star Tracker Mount",
+    "tagline": "Motorized equatorial mount for astrophotography",
+    "emoji": "🔭",
+    "description": "Precision motorized telescope mount that compensates for Earth's rotation, enabling long-exposure astrophotography without star trails. Controlled via custom firmware on an ESP32.",
+    "longDescription": "The mount uses two stepper motors on RA and Dec axes, driven by a TMC2209 driver for near-silent operation. The ESP32 firmware reads a GPS module for precise sidereal rate calculation and supports Bluetooth control. At 300mm focal length, it holds stars as points for 60+ second exposures.",
     "highlights": [
-      "INT8 quantization + layer fusion — 3× faster than TFLite Micro baseline",
-      "28 FPS object detection on Raspberry Pi Zero 2W (512MB RAM)",
-      "Runs on STM32H7 and ESP32-S3 with <100mW power draw",
-      "Custom memory allocator reduces peak RAM by 40% vs. naive approach"
+      "GPS-synchronized sidereal tracking rate accurate to <1 arcsec/min",
+      "Silent TMC2209 stepper drivers — no vibration during exposures",
+      "60+ second exposures at 300mm focal length without star trails",
+      "Bluetooth control via custom iOS shortcut app"
     ],
     "techBreakdown": {
-      "Core Engine": ["C++", "CMake", "SIMD intrinsics"],
-      "ML": ["ONNX", "INT8 quantization", "TFLite Micro"],
-      "Targets": ["Raspberry Pi Zero 2W", "STM32H7", "ESP32-S3"],
-      "Tooling": ["Python", "NumPy", "pytest", "GitHub Actions"]
+      "Firmware": ["C++", "ESP32", "FreeRTOS"],
+      "Hardware": ["TMC2209", "NEMA 17 steppers", "GPS module"],
+      "Design": ["Fusion 360", "KiCad PCB", "3D Printing"]
     },
-    "challenges": "Memory layout on microcontrollers is extremely constrained — no heap fragmentation allowed. I built a static arena allocator that packs layer activations into a single contiguous buffer, reusing memory across layers where data flow permits.",
-    "learnings": "Low-level optimization is mostly about understanding your target's memory hierarchy. Cache misses dominate latency on embedded Cortex-A cores, not arithmetic. Rearranging tensor layout (NHWC vs NCHW) gave a bigger speedup than any algorithmic change.",
-    "tags": ["C++", "ONNX", "Embedded", "ESP32", "Raspberry Pi", "ML Inference"],
-    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+    "challenges": "Mechanical backlash in the worm gear caused periodic error — a slow oscillation visible at high magnification. Solved it with a PEC (Periodic Error Correction) routine that measures and pre-compensates the gear's error signature.",
+    "learnings": "Embedded systems demand extreme resource discipline. Running GPS parsing, stepper control, and BLE simultaneously on an ESP32 required careful task prioritization with FreeRTOS to avoid jitter in the tracking loop.",
+    "tags": ["C++", "ESP32", "FreeRTOS", "CAD", "PCB Design", "Embedded"],
+    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",
     "github": "https://github.com/Adityaagulatii",
     "demo": "",
-    "featured": true
+    "featured": false
   },
   {
     "id": "swarm-robotics",
@@ -178,8 +157,8 @@
       "Simulation": ["Gazebo", "RViz2"],
       "Hardware": ["TurtleBot4", "LiDAR", "Raspberry Pi"]
     },
-    "challenges": "Real-world robot behavior diverges from simulation in subtle ways — wheel slip, sensor noise, and latency. Tuning algorithm parameters that work in both Gazebo simulation and on the physical testbed required a systematic sim-to-real transfer methodology.",
-    "learnings": "Multi-agent systems are hard to debug because emergent failures aren't attributable to a single agent. I built per-agent logging and a post-hoc visualizer to reconstruct what each robot perceived at each timestep — a tool that paid for itself immediately.",
+    "challenges": "Real-world robot behavior diverges from simulation in subtle ways — wheel slip, sensor noise, and latency. Tuning algorithm parameters that work in both Gazebo and on the physical testbed required a systematic sim-to-real transfer methodology.",
+    "learnings": "Multi-agent systems are hard to debug because emergent failures aren't attributable to a single agent. I built per-agent logging and a post-hoc visualizer to reconstruct what each robot perceived at each timestep.",
     "tags": ["ROS2", "Python", "Multi-Agent", "Gazebo", "Nav2", "Research"],
     "image": "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?w=800&q=80",
     "github": "https://github.com/Adityaagulatii",
