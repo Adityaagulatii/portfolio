@@ -1,0 +1,20 @@
+[
+  {
+    "id": "cisco",
+    "company": "Cisco",
+    "role": "Software Engineering Intern",
+    "period": "May 2024 – Aug 2024",
+    "description": "Built internal tooling for network configuration management. Automated deployment pipelines reducing manual steps by 60%. Worked on distributed systems handling millions of daily events.",
+    "tags": ["Python", "Go", "Kubernetes", "Kafka"],
+    "logo": "/images/projects/cisco.png"
+  },
+  {
+    "id": "northeastern",
+    "company": "Northeastern University — Robotics Lab",
+    "role": "Undergraduate Researcher",
+    "period": "Sep 2023 – Present",
+    "description": "Researching multi-agent coordination for autonomous robot swarms. Implemented perception pipeline using depth cameras and point cloud processing.",
+    "tags": ["ROS2", "Python", "C++", "SLAM"],
+    "logo": ""
+  }
+]

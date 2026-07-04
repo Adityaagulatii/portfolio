@@ -1,0 +1,46 @@
+[
+  {
+    "id": "wayfinderai",
+    "title": "WayfinderAI",
+    "tagline": "LLM-powered campus navigation assistant",
+    "description": "Conversational AI that helps students navigate Northeastern's campus, find rooms, and discover resources using natural language queries. Built with RAG pipeline over campus data.",
+    "tags": ["Python", "LangChain", "RAG", "OpenAI", "FastAPI"],
+    "image": "/images/projects/wayfinderai.png",
+    "github": "https://github.com/adityagulati",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "pitlaneai",
+    "title": "PitLane AI",
+    "tagline": "Real-time F1 race strategy predictor",
+    "description": "ML model that predicts optimal pit stop windows and tire strategies during live F1 races using telemetry data, weather, and historical patterns.",
+    "tags": ["Python", "PyTorch", "WebSocket", "React", "F1 API"],
+    "image": "/images/projects/pitlaneai.png",
+    "github": "https://github.com/adityagulati",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "robot-arm",
+    "title": "6-DOF Robot Arm",
+    "tagline": "Vision-guided robotic manipulation",
+    "description": "Designed and built a 6-DOF robot arm with computer vision for object detection and grasp planning. Uses inverse kinematics solver and ROS2 for motion planning.",
+    "tags": ["ROS2", "Python", "OpenCV", "C++", "CAD"],
+    "image": "/images/projects/robot.png",
+    "github": "https://github.com/adityagulati",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "star-tracker",
+    "title": "Star Tracker Mount",
+    "tagline": "Motorized equatorial mount for astrophotography",
+    "description": "Precision motorized telescope mount that compensates for Earth's rotation for long-exposure astrophotography. Controlled via custom firmware on ESP32.",
+    "tags": ["C++", "ESP32", "CAD", "PCB Design", "Embedded"],
+    "image": "/images/projects/startracker.png",
+    "github": "https://github.com/adityagulati",
+    "demo": "",
+    "featured": false
+  }
+]
