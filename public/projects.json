@@ -3,10 +3,25 @@
     "id": "wayfinderai",
     "title": "WayfinderAI",
     "tagline": "LLM-powered campus navigation assistant",
-    "description": "Conversational AI that helps students navigate Northeastern's campus, find rooms, and discover resources using natural language queries. Built with RAG pipeline over campus data.",
-    "tags": ["Python", "LangChain", "RAG", "OpenAI", "FastAPI"],
-    "image": "/images/projects/wayfinderai.png",
-    "github": "https://github.com/adityagulati",
+    "emoji": "🗺️",
+    "description": "Conversational AI that helps students navigate Northeastern's campus using natural language. Ask 'Where's the nearest quiet study spot near EXP?' and get a walking route, hours, and availability.",
+    "longDescription": "Built with a RAG pipeline over 500+ campus locations, rooms, dining hours, and event data. The backend uses FastAPI with streaming responses, and the frontend is a React chat UI. Embeddings are stored in a Pinecone vector database and updated nightly via a GitHub Actions scraper.",
+    "highlights": [
+      "RAG pipeline over 500+ campus locations with nightly data refresh",
+      "Streaming responses for near-instant first-token latency",
+      "Handles ambiguous queries with multi-turn clarification",
+      "Fallback to Northeastern's map API for real-time room availability"
+    ],
+    "techBreakdown": {
+      "Backend": ["Python", "FastAPI", "LangChain", "OpenAI GPT-4o"],
+      "Data": ["Pinecone", "BeautifulSoup", "GitHub Actions"],
+      "Frontend": ["React", "Tailwind CSS", "Server-Sent Events"]
+    },
+    "challenges": "The hardest part was handling ambiguous location names — Northeastern has 3 different 'Curry' buildings. I built a disambiguation layer that uses contextual clues (nearby landmarks, floor numbers) to resolve intent before hitting the vector store.",
+    "learnings": "Learned how RAG pipelines degrade gracefully vs. fail loudly. Streaming responses feel dramatically faster even with the same total latency. Also discovered that nightly scraping is fragile — moved to webhook-based updates for critical data.",
+    "tags": ["Python", "LangChain", "RAG", "OpenAI", "FastAPI", "Pinecone", "React"],
+    "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80",
+    "github": "https://github.com/Adityaagulatii",
     "demo": "",
     "featured": true
   },
@@ -14,10 +29,26 @@
     "id": "pitlaneai",
     "title": "PitLane AI",
     "tagline": "Real-time F1 race strategy predictor",
-    "description": "ML model that predicts optimal pit stop windows and tire strategies during live F1 races using telemetry data, weather, and historical patterns.",
-    "tags": ["Python", "PyTorch", "WebSocket", "React", "F1 API"],
-    "image": "/images/projects/pitlaneai.png",
-    "github": "https://github.com/adityagulati",
+    "emoji": "🏎️",
+    "description": "ML system that predicts optimal pit stop windows and tire strategies during live F1 races. Ingests real-time telemetry, weather data, and rival team strategies to recommend when to pit and on what compound.",
+    "longDescription": "The model is a gradient-boosted ensemble trained on 10 seasons of F1 lap data (~2M laps). It runs on WebSocket-fed telemetry during races and outputs probability distributions over pit windows every 3 laps. A React dashboard visualizes tire degradation curves and strategy scenarios in real time.",
+    "highlights": [
+      "Trained on 10 seasons / 2M+ laps of F1 telemetry data",
+      "Live predictions update every 3 laps via WebSocket",
+      "Tire degradation model accurate to ±1.2 laps vs. actual pit windows",
+      "Safety car and weather event detection updates strategy mid-race"
+    ],
+    "techBreakdown": {
+      "ML": ["Python", "XGBoost", "scikit-learn", "PyTorch"],
+      "Backend": ["FastAPI", "WebSocket", "Redis"],
+      "Frontend": ["React", "Recharts", "Tailwind CSS"],
+      "Data": ["F1 API", "OpenWeather API", "Pandas"]
+    },
+    "challenges": "F1 data is notoriously messy — missing sectors, lap time anomalies from red flags, and inconsistent tire age reporting across teams. I spent 2 weeks just on data cleaning pipelines before the model training could start.",
+    "learnings": "Real-time ML is a different discipline from batch ML. The hardest constraint isn't accuracy — it's latency. I learned to profile and prune features based on inference time, not just model score.",
+    "tags": ["Python", "PyTorch", "XGBoost", "WebSocket", "React", "F1 API"],
+    "image": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80",
+    "github": "https://github.com/Adityaagulatii",
     "demo": "",
     "featured": true
   },
@@ -25,10 +56,26 @@
     "id": "robot-arm",
     "title": "6-DOF Robot Arm",
     "tagline": "Vision-guided robotic manipulation",
-    "description": "Designed and built a 6-DOF robot arm with computer vision for object detection and grasp planning. Uses inverse kinematics solver and ROS2 for motion planning.",
-    "tags": ["ROS2", "Python", "OpenCV", "C++", "CAD"],
-    "image": "/images/projects/robot.png",
-    "github": "https://github.com/adityagulati",
+    "emoji": "🤖",
+    "description": "Designed, built, and programmed a 6-degree-of-freedom robot arm capable of picking and placing objects using a depth camera and custom grasp planning algorithm.",
+    "longDescription": "The arm was designed in Fusion 360 and 3D-printed in PLA. Each joint uses a Dynamixel servo with position feedback. The vision pipeline runs YOLOv8 for object detection and uses a point cloud from an Intel RealSense D435 to estimate 3D pose. ROS2 handles communication between the perception node, IK solver, and hardware controller.",
+    "highlights": [
+      "Custom 6-DOF inverse kinematics solver with singularity avoidance",
+      "YOLOv8 + RealSense D435 for 6DOF object pose estimation",
+      "Sub-centimeter pick accuracy on 20+ object classes",
+      "Built and designed in-house — no commercial robot kit used"
+    ],
+    "techBreakdown": {
+      "Robotics": ["ROS2", "MoveIt2", "Dynamixel SDK"],
+      "Vision": ["OpenCV", "YOLOv8", "Open3D", "Intel RealSense"],
+      "Software": ["Python", "C++"],
+      "Hardware": ["Fusion 360", "3D Printing", "Custom PCB"]
+    },
+    "challenges": "Calibrating the camera-to-robot transform (hand-eye calibration) took far longer than expected. Small errors compound across the kinematic chain — a 2mm calibration error becomes 8mm at the end-effector after 6 joints.",
+    "learnings": "Mechanical tolerances matter enormously in robotics. I learned to design for printability and assembly, not just function — slots for wire routing, accessible screw heads, and snap-fit joints make a real difference.",
+    "tags": ["ROS2", "Python", "OpenCV", "C++", "YOLOv8", "CAD"],
+    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
+    "github": "https://github.com/Adityaagulatii",
     "demo": "",
     "featured": true
   },
@@ -36,10 +83,106 @@
     "id": "star-tracker",
     "title": "Star Tracker Mount",
     "tagline": "Motorized equatorial mount for astrophotography",
-    "description": "Precision motorized telescope mount that compensates for Earth's rotation for long-exposure astrophotography. Controlled via custom firmware on ESP32.",
-    "tags": ["C++", "ESP32", "CAD", "PCB Design", "Embedded"],
-    "image": "/images/projects/startracker.png",
-    "github": "https://github.com/adityagulati",
+    "emoji": "🔭",
+    "description": "Precision motorized telescope mount that compensates for Earth's rotation, enabling long-exposure astrophotography without star trails. Controlled via custom firmware on an ESP32.",
+    "longDescription": "The mount uses two stepper motors on RA and Dec axes, driven by a TMC2209 driver for near-silent operation. The ESP32 firmware reads a GPS module for precise sidereal rate calculation and supports bluetooth control from a custom iOS shortcut. At 300mm focal length, it holds stars as points for 60+ second exposures.",
+    "highlights": [
+      "GPS-synchronized sidereal tracking rate accurate to <1 arcsec/min",
+      "Silent TMC2209 stepper drivers — no vibration during exposures",
+      "60+ second exposures at 300mm focal length without star trails",
+      "Bluetooth control via custom iOS shortcut app"
+    ],
+    "techBreakdown": {
+      "Firmware": ["C++", "ESP32", "Arduino framework"],
+      "Hardware": ["TMC2209", "NEMA 17 steppers", "GPS module"],
+      "Design": ["Fusion 360", "Custom PCB (KiCad)", "3D Printing"]
+    },
+    "challenges": "The biggest challenge was mechanical backlash in the worm gear causing periodic error — a slow oscillation in tracking visible at high magnification. Solved it with a PEC (Periodic Error Correction) routine that measures and pre-compensates for the gear's error signature.",
+    "learnings": "Embedded systems demand extreme resource discipline. Running GPS parsing, stepper control, and BLE simultaneously on an ESP32 required careful task prioritization with FreeRTOS to avoid jitter in the tracking loop.",
+    "tags": ["C++", "ESP32", "FreeRTOS", "CAD", "PCB Design", "Embedded"],
+    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",
+    "github": "https://github.com/Adityaagulatii",
+    "demo": "",
+    "featured": false
+  },
+  {
+    "id": "network-automation",
+    "title": "Cisco Network Automation",
+    "tagline": "Config management & deployment pipeline for enterprise networks",
+    "emoji": "🌐",
+    "description": "Internal tooling built at Cisco to automate network device configuration management. Reduced manual deployment steps by 60% and eliminated a class of configuration drift bugs affecting 1,000+ devices.",
+    "longDescription": "The system pulls desired-state configs from a Git repo, diffs them against live device states via NETCONF, and generates a deployment plan. A Kafka-based event bus streams telemetry from 10,000+ daily network events to a dashboard that surfaces anomalies before they become incidents.",
+    "highlights": [
+      "Automated config deployment across 1,000+ network devices",
+      "NETCONF-based desired-state diffing eliminates configuration drift",
+      "Kafka pipeline processing 10,000+ telemetry events per day",
+      "Reduced manual deployment steps by 60% — verified by team metrics"
+    ],
+    "techBreakdown": {
+      "Backend": ["Python", "Go", "FastAPI"],
+      "Infrastructure": ["Kubernetes", "Kafka", "Docker"],
+      "Networking": ["NETCONF", "YANG models", "Cisco IOS-XE"],
+      "Observability": ["Grafana", "Prometheus"]
+    },
+    "challenges": "Network devices don't have uniform APIs — some supported NETCONF, others only SSH with screen-scraping. Building a unified abstraction layer that worked across 4 different device generations was architecturally the most interesting part of the project.",
+    "learnings": "Enterprise infrastructure engineering is 80% backwards compatibility. I learned to design abstractions that accommodate legacy constraints without leaking them into the core logic — and the discipline of writing ops-friendly code that fails loudly and recovers cleanly.",
+    "tags": ["Python", "Go", "Kubernetes", "Kafka", "NETCONF", "Grafana"],
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    "github": "https://github.com/Adityaagulatii",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "edge-ai",
+    "title": "Edge AI Inference Engine",
+    "tagline": "On-device ML inference for resource-constrained hardware",
+    "emoji": "⚡",
+    "description": "Lightweight inference engine that runs quantized neural networks on microcontrollers and embedded Linux boards — no cloud, no connectivity required. Targets real-time object detection and keyword spotting at under 100mW.",
+    "longDescription": "The engine implements INT8 quantization, layer fusion, and memory-efficient operator scheduling to fit MobileNetV3 and Tiny-YOLO variants inside 512KB of RAM. Benchmarked across Raspberry Pi Zero 2W, STM32H7, and ESP32-S3. Achieved 28 FPS object detection on Pi Zero 2W — 3× faster than TFLite Micro baseline.",
+    "highlights": [
+      "INT8 quantization + layer fusion — 3× faster than TFLite Micro baseline",
+      "28 FPS object detection on Raspberry Pi Zero 2W (512MB RAM)",
+      "Runs on STM32H7 and ESP32-S3 with <100mW power draw",
+      "Custom memory allocator reduces peak RAM by 40% vs. naive approach"
+    ],
+    "techBreakdown": {
+      "Core Engine": ["C++", "CMake", "SIMD intrinsics"],
+      "ML": ["ONNX", "INT8 quantization", "TFLite Micro"],
+      "Targets": ["Raspberry Pi Zero 2W", "STM32H7", "ESP32-S3"],
+      "Tooling": ["Python", "NumPy", "pytest", "GitHub Actions"]
+    },
+    "challenges": "Memory layout on microcontrollers is extremely constrained — no heap fragmentation allowed. I built a static arena allocator that packs layer activations into a single contiguous buffer, reusing memory across layers where data flow permits.",
+    "learnings": "Low-level optimization is mostly about understanding your target's memory hierarchy. Cache misses dominate latency on embedded Cortex-A cores, not arithmetic. Rearranging tensor layout (NHWC vs NCHW) gave a bigger speedup than any algorithmic change.",
+    "tags": ["C++", "ONNX", "Embedded", "ESP32", "Raspberry Pi", "ML Inference"],
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+    "github": "https://github.com/Adityaagulatii",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "swarm-robotics",
+    "title": "Robot Swarm Coordination",
+    "tagline": "Multi-agent path planning for autonomous robot swarms",
+    "emoji": "🐝",
+    "description": "Research project implementing decentralized coordination algorithms for a swarm of 8 ground robots. Each robot has only local sensing but the group achieves global coverage and collision-free navigation.",
+    "longDescription": "Implemented three coordination algorithms — potential fields, flocking (Reynolds rules), and a novel hybrid approach — and benchmarked them on coverage, collision rate, and communication overhead. The hybrid method outperformed prior approaches by 23% on the coverage metric in obstacle-dense environments.",
+    "highlights": [
+      "8-robot hardware testbed with custom ROS2 communication stack",
+      "Novel hybrid coordination algorithm outperforms baselines by 23%",
+      "Decentralized — each robot acts only on local sensor data",
+      "Results submitted to ICRA 2025 workshop"
+    ],
+    "techBreakdown": {
+      "Robotics": ["ROS2", "Nav2", "TF2"],
+      "Algorithms": ["Python", "NumPy", "SciPy"],
+      "Simulation": ["Gazebo", "RViz2"],
+      "Hardware": ["TurtleBot4", "LiDAR", "Raspberry Pi"]
+    },
+    "challenges": "Real-world robot behavior diverges from simulation in subtle ways — wheel slip, sensor noise, and latency. Tuning algorithm parameters that work in both Gazebo simulation and on the physical testbed required a systematic sim-to-real transfer methodology.",
+    "learnings": "Multi-agent systems are hard to debug because emergent failures aren't attributable to a single agent. I built per-agent logging and a post-hoc visualizer to reconstruct what each robot perceived at each timestep — a tool that paid for itself immediately.",
+    "tags": ["ROS2", "Python", "Multi-Agent", "Gazebo", "Nav2", "Research"],
+    "image": "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?w=800&q=80",
+    "github": "https://github.com/Adityaagulatii",
     "demo": "",
     "featured": false
   }
