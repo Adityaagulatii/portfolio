@@ -1,29 +1,98 @@
 [
   {
+    "id": "wayfinderai",
+    "title": "WayfinderAI",
+    "tagline": "AI-powered indoor navigation — no GPS, just vision",
+    "emoji": "🗺️",
+    "description": "Two independent works under the same project — not yet integrated, but sharing the same goal: indoor navigation without GPS, beacons, or hardware.",
+    "longDescription": "",
+    "parts": [
+      {
+        "label": "Part 1 — Local VLM Pipeline",
+        "summary": "Fine-tuned Qwen3-VL-8B to convert raw floorplan images into structured navigation graphs — tackling the hardest input problem: any arbitrary floor plan, any format.",
+        "bullets": [
+          "3-stage LoRA + GRPO fine-tuning on Qwen3-VL-8B",
+          "Input: hand-drawn sketches, scanned PDFs, or CAD exports",
+          "Output: structured navigation graph JSON ready for pathfinding",
+          "GRPO's reward-based signal produced valid graph JSON far more reliably than supervised fine-tuning alone"
+        ]
+      },
+      {
+        "label": "Part 2 — Kroger Grocery Navigation App",
+        "summary": "Voice-first, node-based navigation for Kroger stores. The Kroger Developer API exposes aisle-level product locations for 300,000+ products — WayfinderAI converts this into a live navigation graph. Won 1st Place at Hack@URI AI Track (30+ teams).",
+        "bullets": [
+          "5-agent pipeline: store graph builder → LLM chatbot → route optimizer → OCR aisle reader → shelf scanner",
+          "Dijkstra vs Nearest-Neighbor dual routing — always picks the faster path",
+          "EasyOCR reads physical aisle signs (A1–A42) to confirm real-world location mid-route",
+          "YOLO-World detects any of 300,000+ Kroger products on shelf without retraining"
+        ]
+      }
+    ],
+    "highlights": [
+      "Part 1 — Local VLM: fine-tuned Qwen3-VL-8B via LoRA + GRPO for floorplan-to-navigation-graph generation",
+      "Part 2 — Kroger app: 5-agent pipeline converts Kroger API data into a live navigation graph in <10s",
+      "Dijkstra vs Nearest-Neighbor dual routing — always picks the faster path",
+      "EasyOCR reads physical aisle signs to confirm real-world location mid-route",
+      "YOLO-World detects any of 300,000+ products on shelf without retraining",
+      "Shipped live Vercel demo within 8 weeks"
+    ],
+    "techBreakdown": {
+      "Part 1 — VLM Pipeline": ["Qwen3-VL-8B", "LoRA", "GRPO", "Python"],
+      "Part 2 — Navigation App": ["Kroger API", "NetworkX", "Dijkstra", "EasyOCR", "YOLO-World", "Ollama llama3.2"],
+      "Backend": ["FastAPI", "Python"],
+      "Frontend": ["React", "PWA"]
+    },
+    "challenges": "The two hardest problems are at opposite ends: Part 1 deals with wildly inconsistent floorplan formats (hand-drawn, scanned, CAD) — solved with progressive fine-tuning. Part 2 deals with real-world location confirmation without GPS — solved with EasyOCR reading physical aisle signs and a Claude Vision fallback.",
+    "learnings": "Splitting a problem into independent parallel tracks is underrated. Part 1 and Part 2 were built separately, which meant neither blocked the other. The integration challenge comes later — but both are stronger for having been developed independently first.",
+    "tags": ["Python", "Qwen3-VL-8B", "YOLOv8", "LoRA", "GRPO", "FastAPI", "React", "NetworkX", "EasyOCR"],
+    "image": "/images/projects/wayfinderai-thumb.jpg",
+    "github": "https://github.com/Adityaagulatii",
+    "demo": "",
+    "featured": true,
+    "hackathon": "Hack@URI AI Track · 1st Place"
+  },
+  {
     "id": "apex-ai",
     "title": "Apex AI",
     "tagline": "Vision-only AI race engineer — no sensors, just video",
     "emoji": "🏎️",
-    "description": "Upload any onboard karting or motorcycle lap video and Apex AI watches it like a race engineer. It finds every driving mistake with timestamps, highlights your best moments, and generates a professional coaching report — in seconds.",
-    "longDescription": "Built at the Voxel51 Hackathon (April 2026) with team NUPitlane. The pipeline runs Twelve Labs Pegasus for whole-video semantic analysis, then Groq LLaMA 3.3 70B to synthesize structured coaching output. Available as both a FiftyOne plugin and a standalone React web app. Won the hackathon.",
-    "highlights": [
-      "Watches the entire lap with Twelve Labs Pegasus — understands racing context, not just frames",
-      "Finds braking errors, missed apexes, wide exits, and throttle issues with exact timestamps",
-      "Generates performance scores (1–10) for Racing Line, Braking, and Throttle",
-      "Lap time loss estimates in tenths of seconds per mistake",
-      "Works for karting AND motorcycles — biking adds lean angle & body position analysis",
-      "50 free analyses/day on Twelve Labs free tier"
+    "description": "AI race engineer that watches your onboard karting or motorcycle lap and delivers structured coaching — timestamped mistakes, best moments, performance scores, and lap time loss estimates. Built in two separate versions.",
+    "longDescription": "",
+    "parts": [
+      {
+        "label": "V1 — PitLane AI (Twelve Labs)",
+        "summary": "Built at the Voxel51 Hackathon (April 2026) with Team NUPitlane. Powered by two Twelve Labs models — Pegasus for whole-video semantic analysis and Marengo for video search. Won the Voxel51 + Twelve Labs Computer Vision Hackathon at Northeastern. Ships as a FiftyOne plugin and a standalone React + FastAPI web app.",
+        "bullets": [
+          "Pegasus watches the full lap and finds errors across 4 categories: Racing Line, Braking, Throttle & Traction, Car Control",
+          "Find Best Moments across 6 categories — smooth apex, clean acceleration, perfect racing line, and more",
+          "Ask free-form questions: 'Where am I losing the most time?' — returns verdict + timestamped moments",
+          "Coaching report: performance scores (1–10), sector breakdown, lap time loss in tenths of seconds, top 3 fixes",
+          "Two surfaces: FiftyOne plugin (run operators on video dataset) + React web app"
+        ]
+      },
+      {
+        "label": "V2 — Apex AI (Fully Local)",
+        "summary": "Built for Cursor Boston Hackathon (May 2026). Replaces all paid APIs with a 5-stage local pipeline — Florence-2 + Ollama only. No cloud, no cost. Supports karting, biking, and cycling from a single onboard video.",
+        "bullets": [
+          "Stage 1: CV events loader — YOLOv8n + Farneback optical flow extracts braking, racing line, and speed delta events with severity scores",
+          "Stage 2: Florence-2-base (232M params, CPU) triages each keyframe — vehicle_visible, in_corner, obstacle_ahead via <CAPTION> + <OD> tasks",
+          "Stage 3: Conditional llava reasoning via Ollama — only fires on significant events or obstacle frames, skips the rest",
+          "Stage 4: Parallel llama3.2 coaching note writer — asyncio + ThreadPoolExecutor (4 workers) generates per-event coaching notes concurrently",
+          "Stage 5: llama3.2 session aggregator synthesises all notes into a final structured coaching report",
+          "CV-only fallback mode when Ollama is unavailable — no hard API dependency"
+        ]
+      }
     ],
+    "highlights": [],
     "techBreakdown": {
-      "Video AI": ["Twelve Labs Pegasus", "Marengo search"],
-      "LLM": ["Groq", "LLaMA 3.3 70B"],
-      "Backend": ["FastAPI", "Uvicorn", "Python"],
-      "Frontend": ["React 18", "TypeScript", "Vite", "Tailwind CSS"],
-      "Dataset & Plugin": ["Voxel51 FiftyOne"]
+      "V1 — Twelve Labs": ["Twelve Labs Pegasus", "Marengo", "Groq LLaMA 70B", "Voxel51 FiftyOne"],
+      "V1 — Stack": ["FastAPI", "React 18", "TypeScript", "Python"],
+      "V2 — CV Pipeline": ["YOLOv8n", "Farneback Optical Flow", "OpenCV", "MediaPipe Pose"],
+      "V2 — AI": ["Florence-2-base", "Ollama llava", "Ollama llama3.2", "Streamlit"]
     },
-    "challenges": "Twelve Labs returns rich but unstructured observations. Getting Groq LLaMA to reliably extract valid JSON performance scores from those observations — without hallucinating metrics — required careful prompt engineering and a validation layer that retries on parse failure.",
-    "learnings": "Multimodal video AI is a fundamentally different abstraction than frame-by-frame CV. Pegasus understands racing strategy and driver intent, not just pixel motion. That semantic understanding is what makes the coaching useful rather than just technically correct.",
-    "tags": ["Twelve Labs", "Groq", "LLaMA", "FastAPI", "React", "TypeScript", "FiftyOne", "Python"],
+    "challenges": "V1: Twelve Labs returns rich but unstructured observations — getting Groq LLaMA to extract valid JSON performance scores without hallucinating required careful prompt engineering and retry logic. V2: Florence-2's <OD> task on CPU is ~1–3s per frame — running it on every frame would take hours. The fix was a two-gate system: only triage keyframes flagged by the CV events loader, then only invoke llava on frames that pass Florence-2's severity threshold.",
+    "learnings": "The same product built twice on different constraints teaches you what actually matters. V1 showed that semantic video understanding (Pegasus) produces qualitatively better coaching than frame-level CV alone. V2 showed that parallelising the LLM writing stage (asyncio + ThreadPool) is what makes a 5-stage pipeline feel fast — the bottleneck isn't the model, it's waiting for sequential I/O.",
+    "tags": ["Twelve Labs", "YOLOv8n", "Florence-2", "Ollama", "FastAPI", "React", "FiftyOne", "MediaPipe", "Python"],
     "image": "/images/projects/apexai-thumb.png",
     "demoGif": "/images/projects/apexai-demo.gif",
     "github": "https://github.com/pankhuri0209/NUPitlane-PitlaneAI",
@@ -32,135 +101,87 @@
     "hackathon": "Voxel51 Hackathon · April 2026"
   },
   {
-    "id": "edge-ai",
-    "title": "Edge AI Inference Engine",
-    "tagline": "On-device ML inference for resource-constrained hardware",
+    "id": "edge-ai-multisensor",
+    "title": "Edge AI Multisensor System",
+    "tagline": "Distributed edge intelligence for building automation with multi-sensor pipelines",
     "emoji": "⚡",
-    "description": "Lightweight inference engine that runs quantized neural networks on microcontrollers and embedded Linux boards — no cloud, no connectivity required. Targets real-time object detection and keyword spotting at under 100mW.",
-    "longDescription": "The engine implements INT8 quantization, layer fusion, and memory-efficient operator scheduling to fit MobileNetV3 and Tiny-YOLO variants inside 512KB of RAM. Benchmarked across Raspberry Pi Zero 2W, STM32H7, and ESP32-S3. Achieved 28 FPS object detection on Pi Zero 2W — 3× faster than TFLite Micro baseline.",
+    "description": "A multi-hub edge AI system that runs 5 parallel edge hub threads — each monitoring a building zone via real BMS sensor data (VAVs, RTUs) — and a central coordinator that escalates anomalies. All AI runs locally via Ollama. No cloud, no latency, no data leaving the building.",
+    "longDescription": "Each edge hub polls live VAV (variable air volume) and RTU (rooftop unit) sensor readings, computes divergence scores against setpoints, and classifies anomalies as moderate or critical using an active inference framework. Critical events are escalated to a CVC (central validation coordinator) running llama3.2 locally. The system supports 8 named fault scenarios — from single zone overheat to a full multi-hub crisis — and sends alerts via Telegram to engineers and operators.",
     "highlights": [
-      "INT8 quantization + layer fusion — 3× faster than TFLite Micro baseline",
-      "28 FPS object detection on Raspberry Pi Zero 2W (512MB RAM)",
-      "Runs on STM32H7 and ESP32-S3 with <100mW power draw",
-      "Custom memory allocator reduces peak RAM by 40% vs. naive approach"
+      "5 parallel edge hub threads, each monitoring a dedicated building zone independently",
+      "Real BMS data: 26 VAVs + 4 RTUs across 5 zones — real sensor readings, not mocked",
+      "Active inference anomaly detection — divergence score triggers moderate/critical classification",
+      "Ollama llama3.2 runs entirely locally — no cloud API calls, no data leaves the building",
+      "8 named fault scenarios: zone overheat, sensor loss, power surge, RTU fault, multi-hub crisis",
+      "Telegram alerting to separate engineer and operator channels on critical events"
     ],
     "techBreakdown": {
-      "Core Engine": ["C++", "CMake", "SIMD intrinsics"],
-      "ML": ["ONNX", "INT8 quantization", "TFLite Micro"],
-      "Targets": ["Raspberry Pi Zero 2W", "STM32H7", "ESP32-S3"],
-      "Tooling": ["Python", "NumPy", "pytest", "GitHub Actions"]
+      "Edge AI": ["Ollama llama3.2", "Active Inference", "Python"],
+      "Sensors & Data": ["BMS VAV sensors", "RTU sensors", "WiFi device count", "Weather API"],
+      "Architecture": ["Multi-threaded edge hubs", "CVC coordinator", "Scenario injection"],
+      "Alerting": ["Telegram Bot API", "Dashboard (Tkinter)", "Log viewer"]
     },
-    "challenges": "Memory layout on microcontrollers is extremely constrained — no heap fragmentation allowed. I built a static arena allocator that packs layer activations into a single contiguous buffer, reusing memory across layers where data flow permits.",
-    "learnings": "Low-level optimization is mostly about understanding your target's memory hierarchy. Cache misses dominate latency on embedded Cortex-A cores, not arithmetic. Rearranging tensor layout gave a bigger speedup than any algorithmic change.",
-    "tags": ["C++", "ONNX", "Embedded", "ESP32", "Raspberry Pi", "ML Inference"],
-    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
-    "github": "https://github.com/Adityaagulatii",
-    "demo": "",
-    "featured": true
-  },
-  {
-    "id": "robot-arm",
-    "title": "6-DOF Robot Arm",
-    "tagline": "Vision-guided robotic manipulation",
-    "emoji": "🤖",
-    "description": "Designed, built, and programmed a 6-degree-of-freedom robot arm capable of picking and placing objects using a depth camera and custom grasp planning algorithm.",
-    "longDescription": "The arm was designed in Fusion 360 and 3D-printed in PLA. Each joint uses a Dynamixel servo with position feedback. The vision pipeline runs YOLOv8 for object detection and uses a point cloud from an Intel RealSense D435 to estimate 3D pose. ROS2 handles communication between the perception node, IK solver, and hardware controller.",
-    "highlights": [
-      "Custom 6-DOF inverse kinematics solver with singularity avoidance",
-      "YOLOv8 + RealSense D435 for 6DOF object pose estimation",
-      "Sub-centimeter pick accuracy on 20+ object classes",
-      "Built and designed in-house — no commercial robot kit used"
-    ],
-    "techBreakdown": {
-      "Robotics": ["ROS2", "MoveIt2", "Dynamixel SDK"],
-      "Vision": ["OpenCV", "YOLOv8", "Open3D", "Intel RealSense"],
-      "Software": ["Python", "C++"],
-      "Hardware": ["Fusion 360", "3D Printing", "Custom PCB"]
-    },
-    "challenges": "Calibrating the camera-to-robot transform (hand-eye calibration) took far longer than expected. Small errors compound across the kinematic chain — a 2mm calibration error becomes 8mm at the end-effector after 6 joints.",
-    "learnings": "Mechanical tolerances matter enormously in robotics. I learned to design for printability and assembly, not just function — slots for wire routing, accessible screw heads, and snap-fit joints make a real difference.",
-    "tags": ["ROS2", "Python", "OpenCV", "C++", "YOLOv8", "CAD"],
-    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
-    "github": "https://github.com/Adityaagulatii",
-    "demo": "",
-    "featured": true
-  },
-  {
-    "id": "network-automation",
-    "title": "Cisco Network Automation",
-    "tagline": "Config management & deployment pipeline for enterprise networks",
-    "emoji": "🌐",
-    "description": "Internal tooling built at Cisco to automate network device configuration management. Reduced manual deployment steps by 60% and eliminated a class of configuration drift bugs affecting 1,000+ devices.",
-    "longDescription": "The system pulls desired-state configs from a Git repo, diffs them against live device states via NETCONF, and generates a deployment plan. A Kafka-based event bus streams telemetry from 10,000+ daily network events to a dashboard that surfaces anomalies before they become incidents.",
-    "highlights": [
-      "Automated config deployment across 1,000+ network devices",
-      "NETCONF-based desired-state diffing eliminates configuration drift",
-      "Kafka pipeline processing 10,000+ telemetry events per day",
-      "Reduced manual deployment steps by 60% — verified by team metrics"
-    ],
-    "techBreakdown": {
-      "Backend": ["Python", "Go", "FastAPI"],
-      "Infrastructure": ["Kubernetes", "Kafka", "Docker"],
-      "Networking": ["NETCONF", "YANG models", "Cisco IOS-XE"],
-      "Observability": ["Grafana", "Prometheus"]
-    },
-    "challenges": "Network devices don't have uniform APIs — some supported NETCONF, others only SSH with screen-scraping. Building a unified abstraction layer that worked across 4 different device generations was architecturally the most interesting part.",
-    "learnings": "Enterprise infrastructure engineering is 80% backwards compatibility. I learned to design abstractions that accommodate legacy constraints without leaking them into the core logic.",
-    "tags": ["Python", "Go", "Kubernetes", "Kafka", "NETCONF", "Grafana"],
+    "challenges": "Designing a two-level model hierarchy (hub LLM + CVC LLM) where each hub acts independently but the coordinator synthesises across all zones required careful message passing and timeout handling — if a hub is slow, the CVC can't block waiting for it.",
+    "learnings": "Edge AI for physical infrastructure is fundamentally different from cloud AI — latency, reliability, and data residency constraints dominate design decisions more than raw accuracy. Running llama3.2 locally was non-negotiable for a real building deployment.",
+    "tags": ["Python", "Ollama", "llama3.2", "Active Inference", "BMS", "Edge AI", "Telegram"],
     "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
     "github": "https://github.com/Adityaagulatii",
     "demo": "",
     "featured": true
   },
   {
-    "id": "star-tracker",
-    "title": "Star Tracker Mount",
-    "tagline": "Motorized equatorial mount for astrophotography",
-    "emoji": "🔭",
-    "description": "Precision motorized telescope mount that compensates for Earth's rotation, enabling long-exposure astrophotography without star trails. Controlled via custom firmware on an ESP32.",
-    "longDescription": "The mount uses two stepper motors on RA and Dec axes, driven by a TMC2209 driver for near-silent operation. The ESP32 firmware reads a GPS module for precise sidereal rate calculation and supports Bluetooth control. At 300mm focal length, it holds stars as points for 60+ second exposures.",
+    "id": "intelligent-robot",
+    "title": "Intelligent Follow-Me Robot",
+    "tagline": "Real-time person-following robot using phone as camera and IMU",
+    "emoji": "🤖",
+    "description": "A person-following robot pipeline that uses an Android phone as the only sensor — streaming video and IMU data over WiFi. The laptop runs YOLOv8 + ReID + KCF tracking and sends BLE motor commands to an Elegoo UNO R4 robot in real time.",
+    "longDescription": "The pipeline runs entirely on a laptop with no GPU required. Each frame goes through YOLOv8 detection, zone-based ReID enrollment (head/upper/lower body embeddings + colour histograms + gait), KCF tracking between YOLO frames, Kalman smoothing, IMU-based shake detection, obstacle heuristics from bottom-zone pixel analysis, and a safety governor — all before a BLE command is sent to the robot. The system recovers from losing the target using gyro-integrated search sweeps.",
     "highlights": [
-      "GPS-synchronized sidereal tracking rate accurate to <1 arcsec/min",
-      "Silent TMC2209 stepper drivers — no vibration during exposures",
-      "60+ second exposures at 300mm focal length without star trails",
-      "Bluetooth control via custom iOS shortcut app"
+      "Android phone as the only sensor — MJPEG video + gyro/accelerometer over WiFi",
+      "Zone-based ReID: head, upper body, lower body embeddings + colour histograms + gait signature",
+      "KCF tracker + Kalman filter between YOLO frames — smooth tracking at ~30Hz",
+      "IMU fusion: shake detection skips ReID on blurred frames, gyro gates IoU re-init on slopes",
+      "5-stage safety pipeline: obstacle heuristics → reflex layer → safety governor → BLE execution",
+      "Lost-person recovery using gyro-integrated directional search sweeps"
     ],
     "techBreakdown": {
-      "Firmware": ["C++", "ESP32", "FreeRTOS"],
-      "Hardware": ["TMC2209", "NEMA 17 steppers", "GPS module"],
-      "Design": ["Fusion 360", "KiCad PCB", "3D Printing"]
+      "Vision & Tracking": ["YOLOv8n / YOLO11n", "KCF Tracker", "Kalman Filter", "ReID"],
+      "Sensors": ["IP Webcam (MJPEG)", "IMU gyro/accelerometer", "MediaPipe Pose"],
+      "Robot Control": ["BLE UART (bleak)", "Elegoo UNO R4 WiFi", "Flask server"],
+      "Safety": ["Obstacle heuristics", "Local reflex layer", "Safety governor"]
     },
-    "challenges": "Mechanical backlash in the worm gear caused periodic error — a slow oscillation visible at high magnification. Solved it with a PEC (Periodic Error Correction) routine that measures and pre-compensates the gear's error signature.",
-    "learnings": "Embedded systems demand extreme resource discipline. Running GPS parsing, stepper control, and BLE simultaneously on an ESP32 required careful task prioritization with FreeRTOS to avoid jitter in the tracking loop.",
-    "tags": ["C++", "ESP32", "FreeRTOS", "CAD", "PCB Design", "Embedded"],
-    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",
+    "challenges": "The KCF tracker drifts onto walls when the target is lost — the fix was a hard YOLO veto rule: if YOLO runs and finds zero people, the tracker output is discarded entirely. No tracker is allowed to override a confirmed negative detection.",
+    "learnings": "Multi-modal sensor fusion (vision + IMU) is where robotics gets interesting. The IMU doesn't track the person — it tracks the robot itself. Using it to detect when the robot is shaking (skip ReID) or turning fast (gate tracker re-init) made the system dramatically more robust.",
+    "tags": ["Python", "YOLOv8", "ReID", "KCF", "Kalman", "BLE", "OpenCV", "MediaPipe"],
+    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
     "github": "https://github.com/Adityaagulatii",
     "demo": "",
-    "featured": false
+    "featured": true
   },
   {
-    "id": "swarm-robotics",
-    "title": "Robot Swarm Coordination",
-    "tagline": "Multi-agent path planning for autonomous robot swarms",
-    "emoji": "🐝",
-    "description": "Research project implementing decentralized coordination algorithms for a swarm of 8 ground robots. Each robot has only local sensing but the group achieves global coverage and collision-free navigation.",
-    "longDescription": "Implemented three coordination algorithms — potential fields, flocking (Reynolds rules), and a novel hybrid approach — and benchmarked them on coverage, collision rate, and communication overhead. The hybrid method outperformed prior approaches by 23% on the coverage metric in obstacle-dense environments.",
+    "id": "star-tracker",
+    "title": "Star Tracker CNN",
+    "tagline": "Comparing U-Net variants for star detection in CubeSat star trackers",
+    "emoji": "🔭",
+    "description": "Research project benchmarking three U-Net architectures for star detection and centroid localisation on real DSS2 sky images — targeting CubeSat star tracker constraints where model size, inference time, and accuracy all matter equally.",
+    "longDescription": "Part of the Northeastern Satellite Lab CubeSat Star Tracker project. Trained and evaluated UNet (481K params), MobileUNet (255K params), and ELUNet (59K params) on 250 real sky images from NASA SkyView's DSS2 Red Survey. Ground truth segmentation maps were generated by brightness thresholding and cross-referenced with the Gaia DR3 star catalog (1.8 billion stars). ELUNet — at 59K parameters — achieved F1 of 0.910 and 0.45px centroid error at 8.13ms inference, making it the strongest candidate for INT8 quantization on Raspberry Pi.",
     "highlights": [
-      "8-robot hardware testbed with custom ROS2 communication stack",
-      "Novel hybrid coordination algorithm outperforms baselines by 23%",
-      "Decentralized — each robot acts only on local sensor data",
-      "Results submitted to ICRA 2025 workshop"
+      "UNet: F1 0.928, centroid error 0.39px, 5.54ms inference — highest accuracy",
+      "MobileUNet: F1 0.884, centroid error 0.49px, 17.81ms — slowest despite fewer params",
+      "ELUNet: F1 0.910, centroid error 0.45px, 8.13ms — best size/speed/accuracy tradeoff at 59K params",
+      "250 real DSS2 Red Survey sky images, cross-referenced with Gaia DR3 star catalog",
+      "Targets CubeSat power constraints — model size and inference time are first-class constraints"
     ],
     "techBreakdown": {
-      "Robotics": ["ROS2", "Nav2", "TF2"],
-      "Algorithms": ["Python", "NumPy", "SciPy"],
-      "Simulation": ["Gazebo", "RViz2"],
-      "Hardware": ["TurtleBot4", "LiDAR", "Raspberry Pi"]
+      "Models": ["UNet", "MobileUNet", "ELUNet"],
+      "Framework": ["PyTorch", "Python"],
+      "Data": ["NASA SkyView DSS2", "Gaia DR3 catalog", "Astropy", "Astroquery"],
+      "Target Hardware": ["Raspberry Pi (INT8 quantized)", "CubeSat"]
     },
-    "challenges": "Real-world robot behavior diverges from simulation in subtle ways — wheel slip, sensor noise, and latency. Tuning algorithm parameters that work in both Gazebo and on the physical testbed required a systematic sim-to-real transfer methodology.",
-    "learnings": "Multi-agent systems are hard to debug because emergent failures aren't attributable to a single agent. I built per-agent logging and a post-hoc visualizer to reconstruct what each robot perceived at each timestep.",
-    "tags": ["ROS2", "Python", "Multi-Agent", "Gazebo", "Nav2", "Research"],
-    "image": "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?w=800&q=80",
+    "challenges": "MobileUNet — despite having fewer parameters than UNet — was the slowest model (17.81ms). The inverted residual blocks that make MobileNet efficient on classification tasks don't translate to segmentation in the same way, especially at this input resolution.",
+    "learnings": "For satellite hardware, the right metric isn't F1 alone — it's F1 per millisecond per kilobyte of model size. ELUNet's aggressive channel reduction (base channels = 8) is what makes it quantization-friendly and the real candidate for deployment.",
+    "tags": ["PyTorch", "U-Net", "Star Detection", "CubeSat", "Gaia DR3", "Segmentation", "Research"],
+    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",
     "github": "https://github.com/Adityaagulatii",
     "demo": "",
     "featured": false

@@ -5,27 +5,23 @@ export default function ProjectsGrid() {
   const { projects, loading } = useProjects()
 
   return (
-    <section id="projects" className="px-6 py-24 max-w-6xl mx-auto">
-      <div className="mb-12">
-        <p className="text-accent text-sm font-mono mb-2">// what i've built</p>
-        <h2 className="text-3xl font-bold text-dark">Projects</h2>
-      </div>
+    <section id="projects" className="px-8 md:px-16 lg:px-20 py-32 border-t border-border">
+      <h2 className="text-5xl md:text-6xl font-black text-dark tracking-tight mb-20">Projects</h2>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
           {[1,2,3].map(i => (
-            <div key={i} className="bg-white border border-border rounded-xl overflow-hidden animate-pulse">
-              <div className="aspect-video bg-slate-100" />
-              <div className="p-5 space-y-3">
-                <div className="h-4 bg-slate-100 rounded w-2/3" />
-                <div className="h-3 bg-slate-100 rounded w-full" />
-                <div className="h-3 bg-slate-100 rounded w-4/5" />
+            <div key={i} className="bg-bg animate-pulse">
+              <div className="aspect-video bg-surface" />
+              <div className="p-6 space-y-3">
+                <div className="h-4 bg-surface rounded w-2/3" />
+                <div className="h-3 bg-surface rounded w-full" />
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
           {projects.map(project => (
             <ProjectCard key={project.id} project={project} />
           ))}

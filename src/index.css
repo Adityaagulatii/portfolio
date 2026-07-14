@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,8 +9,8 @@
 }
 
 body {
-  background-color: #fafafa;
-  color: #111827;
+  background-color: #0a0a0a;
+  color: #f0f0f0;
   font-family: 'Inter', system-ui, sans-serif;
   margin: 0;
   padding: 0;
@@ -26,15 +26,15 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f3f4f6;
+  background: #111111;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: #333333;
   border-radius: 2px;
 }
 
 ::selection {
-  background: #bfdbfe;
-  color: #1e40af;
+  background: rgba(249, 115, 22, 0.3);
+  color: #f97316;
 }

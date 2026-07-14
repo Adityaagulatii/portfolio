@@ -1,35 +1,30 @@
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto pt-20">
+    <section className="min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-20 pt-24 pb-16">
       <div className="animate-fade-in">
-        <div className="inline-flex items-center gap-2 bg-accent-light text-accent text-xs font-mono px-3 py-1.5 rounded-full mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+        <p className="text-muted text-sm font-mono tracking-widest uppercase mb-8">
           Master's in AI · Northeastern University
-        </div>
+        </p>
 
-        <h1 className="text-5xl md:text-7xl font-bold text-dark leading-tight mb-6 tracking-tight">
+        <h1 className="text-[clamp(3.5rem,10vw,9rem)] font-black text-dark leading-[0.9] tracking-tight mb-10">
           Aditya<br />
           <span className="text-accent">Gulati</span>
         </h1>
 
-        <p className="text-muted text-lg max-w-xl leading-relaxed mb-10">
-          Master's in AI @ Northeastern · building things that{' '}
-          <span className="text-dark font-medium">see</span>,{' '}
-          <span className="text-dark font-medium">move</span>, and{' '}
-          <span className="text-dark font-medium">think</span> — computer vision, LLMs, and robotics.
+        <p className="text-dark text-lg md:text-xl max-w-lg leading-relaxed mb-3 font-medium">
+          Computer Vision & Robotics · Seeking co-op for January 2027
+        </p>
+        <p className="text-muted text-base max-w-xl leading-relaxed mb-12">
+          B.Sc. Statistics & Mathematics, University of Toronto. Previously a Data Analyst and GIS Analyst in Toronto. Now completing a Master's in Artificial Intelligence at Northeastern University.
         </p>
 
-        <div className="flex flex-wrap items-center gap-3 text-sm mb-16">
+        <div className="flex flex-wrap items-center gap-4 text-sm mb-16">
           <a href="#projects"
-            className="px-5 py-2.5 bg-accent text-white font-medium hover:bg-blue-700 transition-colors rounded-lg shadow-sm shadow-blue-200">
+            className="px-6 py-3 bg-accent text-white font-semibold hover:bg-orange-500 transition-colors rounded-sm">
             View My Work →
           </a>
-          <a href="mailto:gulati.adi@northeastern.edu"
-            className="px-5 py-2.5 border border-border text-dark hover:border-accent hover:text-accent transition-colors rounded-lg">
-            Get in Touch
-          </a>
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
-            className="px-5 py-2.5 border border-border text-dark hover:border-accent hover:text-accent transition-colors rounded-lg">
+          <a href="/resume"
+            className="px-6 py-3 border border-border text-muted hover:border-accent hover:text-accent transition-colors rounded-sm">
             Resume ↗
           </a>
         </div>
@@ -56,15 +51,6 @@ export default function Hero() {
             </svg>
             Email
           </a>
-        </div>
-
-        <div className="mt-20 grid grid-cols-3 gap-8 max-w-sm">
-          {[['3+', 'Hackathons Won'], ['6+', 'Projects Built'], ['4+', 'Years Experience']].map(([num, label]) => (
-            <div key={label}>
-              <p className="text-2xl font-bold text-dark">{num}</p>
-              <p className="text-xs text-muted">{label}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
