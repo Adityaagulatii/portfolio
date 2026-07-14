@@ -39,7 +39,11 @@ export default function ProjectDetail() {
   const color = project.color || '#f97316'
 
   return (
-    <div className="px-8 md:px-16 lg:px-20 py-24 animate-fade-in max-w-5xl">
+    <div
+      className="min-h-screen animate-fade-in"
+      style={{ backgroundColor: `${color}0c` }}
+    >
+    <div className="px-8 md:px-16 lg:px-20 py-24 max-w-5xl">
       <Link to="/" className="inline-flex items-center gap-2 text-muted text-sm transition-colors mb-12" style={{ color: 'inherit' }}
         onMouseEnter={e => e.currentTarget.style.color = color}
         onMouseLeave={e => e.currentTarget.style.color = ''}
@@ -106,7 +110,7 @@ export default function ProjectDetail() {
       {project.parts?.length > 0 && (
         <div className="mb-16 grid sm:grid-cols-2 gap-px bg-border">
           {project.parts.map((part, i) => (
-            <div key={i} className="p-6 bg-surface">
+            <div key={i} className="p-6" style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}>
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-6 h-6 text-white text-xs font-bold flex items-center justify-center shrink-0" style={{ backgroundColor: color }}>
                   {i + 1}
@@ -166,7 +170,7 @@ export default function ProjectDetail() {
             </div>
           )}
           {project.learnings && (
-            <div className="p-6 bg-surface">
+            <div className="p-6" style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}>
               <h3 className="text-xs font-semibold text-dark mb-3 uppercase tracking-widest">What I Learned</h3>
               <p className="text-muted text-sm leading-relaxed">{project.learnings}</p>
             </div>
@@ -174,17 +178,22 @@ export default function ProjectDetail() {
         </div>
       )}
 
-      <div className="border-t border-border pt-12">
+      <div className="border-t pt-12" style={{ borderColor: `${color}30` }}>
         <p className="text-muted text-xs uppercase tracking-widest mb-6">More projects</p>
         <div className="flex flex-wrap gap-3">
           {projects.filter(p => p.id !== id).slice(0, 3).map(p => (
             <Link key={p.id} to={`/project/${p.id}`}
-              className="text-sm px-4 py-2 border border-border rounded-sm hover:border-accent hover:text-accent text-muted transition-colors">
+              className="text-sm px-4 py-2 border border-border rounded-sm text-muted transition-colors hover:border-current"
+              style={{ '--hover-color': p.color || '#f97316' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = p.color; e.currentTarget.style.color = p.color }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = ''; e.currentTarget.style.color = '' }}
+            >
               {p.title} →
             </Link>
           ))}
         </div>
       </div>
+    </div>
     </div>
   )
 }
