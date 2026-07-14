@@ -43,7 +43,7 @@ export default function ProjectDetail() {
       className="min-h-screen animate-fade-in"
       style={{ backgroundColor: `${color}0c` }}
     >
-    <div className="px-8 md:px-16 lg:px-20 py-24 max-w-5xl">
+    <div className="px-8 md:px-16 lg:px-20 py-24">
       <Link to="/" className="inline-flex items-center gap-2 text-muted text-sm transition-colors mb-12" style={{ color: 'inherit' }}
         onMouseEnter={e => e.currentTarget.style.color = color}
         onMouseLeave={e => e.currentTarget.style.color = ''}
@@ -54,7 +54,7 @@ export default function ProjectDetail() {
         Back
       </Link>
 
-      <div className="w-full aspect-video bg-surface overflow-hidden mb-12">
+      <div className="w-full aspect-[21/9] bg-surface overflow-hidden mb-12 -mx-8 md:-mx-16 lg:-mx-20" style={{ width: 'calc(100% + 4rem)', maxWidth: 'none' }}>
         <img
           src={project.demoGif || project.image}
           alt={project.title}
@@ -108,7 +108,7 @@ export default function ProjectDetail() {
       </div>
 
       {project.parts?.length > 0 && (
-        <div className="mb-16 grid sm:grid-cols-2 gap-px bg-border">
+        <div className="mb-16 grid sm:grid-cols-2 lg:grid-cols-2 gap-px bg-border">
           {project.parts.map((part, i) => (
             <div key={i} className="p-6" style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}>
               <div className="flex items-center gap-3 mb-4">
@@ -141,7 +141,7 @@ export default function ProjectDetail() {
       {project.highlights?.length > 0 && (
         <div className="mb-16">
           <h2 className="text-2xl font-black text-dark tracking-tight mb-8">Key Highlights</h2>
-          <div className="grid sm:grid-cols-2 gap-px bg-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
             {project.highlights.map((item, i) => (
               <div key={i} className="flex gap-3 p-5 bg-surface">
                 <span className="text-accent mt-0.5 shrink-0 text-sm">→</span>
@@ -155,7 +155,7 @@ export default function ProjectDetail() {
       {project.techBreakdown && (
         <div className="mb-16">
           <h2 className="text-2xl font-black text-dark tracking-tight mb-8">Tech Stack</h2>
-          <div className="grid sm:grid-cols-2 gap-px bg-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
             {Object.entries(project.techBreakdown).map(([category, items]) => (
               <div key={category} className="p-5 bg-surface">
                 <p className="text-xs font-semibold text-muted uppercase tracking-widest mb-3">{category}</p>
