@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-20 pt-24 pb-16">
+    <section className="min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-20 pt-24 pb-16" style={{ scrollSnapAlign: 'start' }}>
       <div className="animate-fade-in">
         <p className="text-muted text-sm font-mono tracking-widest uppercase mb-8">
           Master's in AI · Northeastern University

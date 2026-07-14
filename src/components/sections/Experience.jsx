@@ -11,7 +11,7 @@ export default function Experience() {
   }, [])
 
   return (
-    <section id="experience" className="px-8 md:px-16 lg:px-20 py-32 border-t border-border">
+    <section id="experience" className="px-8 md:px-16 lg:px-20 py-24 border-t border-border" style={{ scrollSnapAlign: 'start', minHeight: '100vh', overflowY: 'auto' }}>
       <div className="max-w-4xl">
         <h2 className="text-5xl md:text-6xl font-black text-dark tracking-tight mb-20">Experience</h2>
 

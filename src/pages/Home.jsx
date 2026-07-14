@@ -5,7 +5,14 @@ import Contact from '../components/sections/Contact'
 
 export default function Home() {
   return (
-    <main>
+    <main
+      style={{
+        height: '100vh',
+        overflowY: 'scroll',
+        scrollSnapType: 'y mandatory',
+        scrollBehavior: 'smooth',
+      }}
+    >
       <Hero />
       <Experience />
       <ProjectsGrid />

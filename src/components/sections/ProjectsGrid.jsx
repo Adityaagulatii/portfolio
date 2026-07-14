@@ -5,11 +5,17 @@ export default function ProjectsGrid() {
   const { projects, loading } = useProjects()
 
   return (
-    <section id="projects" className="px-8 md:px-16 lg:px-20 py-32 border-t border-border">
-      <h2 className="text-5xl md:text-6xl font-black text-dark tracking-tight mb-16">Projects</h2>
+    <section
+      id="projects"
+      className="border-t border-border"
+      style={{ scrollSnapAlign: 'start', minHeight: '100vh', overflowY: 'auto' }}
+    >
+      <h2 className="text-5xl md:text-6xl font-black text-dark tracking-tight px-8 md:px-16 lg:px-20 pt-24 pb-16">
+        Projects
+      </h2>
 
       {loading ? (
-        <div className="border-t border-border">
+        <div>
           {[1,2,3].map(i => (
             <div key={i} className="border-b border-border px-8 md:px-16 lg:px-20 py-10 animate-pulse flex justify-between gap-8">
               <div className="flex-1 space-y-3">

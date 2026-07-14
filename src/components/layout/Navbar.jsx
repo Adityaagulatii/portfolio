@@ -1,5 +1,9 @@
 import { Link, useLocation } from 'react-router-dom'
 
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+}
+
 export default function Navbar() {
   const { pathname } = useLocation()
 
@@ -11,9 +15,9 @@ export default function Navbar() {
 
       {pathname === '/' && (
         <div className="flex items-center gap-8 text-sm text-muted">
-          <a href="#projects" className="hover:text-dark transition-colors">Projects</a>
-          <a href="#experience" className="hover:text-dark transition-colors">Experience</a>
-          <a href="#contact" className="hover:text-dark transition-colors">Contact</a>
+          <button onClick={() => scrollTo('projects')} className="hover:text-dark transition-colors">Projects</button>
+          <button onClick={() => scrollTo('experience')} className="hover:text-dark transition-colors">Experience</button>
+          <button onClick={() => scrollTo('contact')} className="hover:text-dark transition-colors">Contact</button>
         </div>
       )}
     </nav>

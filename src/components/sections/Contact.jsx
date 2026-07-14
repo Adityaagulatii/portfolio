@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <section id="contact" className="px-8 md:px-16 lg:px-20 py-32 border-t border-border">
+    <section id="contact" className="px-8 md:px-16 lg:px-20 border-t border-border flex flex-col justify-center" style={{ scrollSnapAlign: 'start', minHeight: '100vh' }}>
       <div className="max-w-2xl">
         <h2 className="text-5xl md:text-6xl font-black text-dark tracking-tight mb-6">Get In Touch</h2>
         <p className="text-muted text-lg leading-relaxed mb-16">
