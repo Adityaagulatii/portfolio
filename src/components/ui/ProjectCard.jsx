@@ -10,7 +10,7 @@ export default function ProjectCard({ project }) {
       to={`/project/${project.id}`}
       className="group block border-b border-border transition-all duration-300"
       style={{
-        backgroundColor: hovered ? `${color}0d` : 'transparent',
+        backgroundColor: hovered ? `${color}12` : 'transparent',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
