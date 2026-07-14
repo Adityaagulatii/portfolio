@@ -63,6 +63,7 @@
     "parts": [
       {
         "label": "V1 — PitLane AI (Twelve Labs)",
+        "demo": "https://pitai.onrender.com/",
         "summary": "Built at the Voxel51 Hackathon (April 2026) with Team NUPitlane. Powered by two Twelve Labs models — Pegasus for whole-video semantic analysis and Marengo for video search. Won the Voxel51 + Twelve Labs Computer Vision Hackathon at Northeastern. Ships as a FiftyOne plugin and a standalone React + FastAPI web app.",
         "bullets": [
           "Pegasus watches the full lap and finds errors across 4 categories: Racing Line, Braking, Throttle & Traction, Car Control",
@@ -74,6 +75,7 @@
       },
       {
         "label": "V2 — Apex AI (Fully Local)",
+        "demo": "https://apexai-obcvp3fpojytbhwchupwmc.streamlit.app/",
         "summary": "Built for Cursor Boston Hackathon (May 2026). Replaces all paid APIs with a 5-stage local pipeline — Florence-2 + Ollama only. No cloud, no cost. Supports karting, biking, and cycling from a single onboard video.",
         "bullets": [
           "Stage 1: CV events loader — YOLOv8n + Farneback optical flow extracts braking, racing line, and speed delta events with severity scores",

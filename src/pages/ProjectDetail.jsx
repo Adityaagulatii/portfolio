@@ -118,7 +118,7 @@ export default function ProjectDetail() {
                 <h3 className="font-semibold text-dark text-sm">{part.label}</h3>
               </div>
               <p className="text-muted text-sm leading-relaxed mb-4">{part.summary}</p>
-              <ul className="space-y-2">
+              <ul className="space-y-2 mb-5">
                 {part.bullets.map((b, j) => (
                   <li key={j} className="flex gap-2 text-sm text-muted">
                     <span className="mt-0.5 shrink-0" style={{ color }}>→</span>
@@ -126,6 +126,13 @@ export default function ProjectDetail() {
                   </li>
                 ))}
               </ul>
+              {part.demo && (
+                <a href={part.demo} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-sm transition-opacity hover:opacity-80"
+                  style={{ backgroundColor: `${color}18`, color }}>
+                  Live Demo ↗
+                </a>
+              )}
             </div>
           ))}
         </div>
