@@ -134,9 +134,9 @@ export default function ProjectDetail() {
       )}
 
       {project.parts?.length > 0 && (
-        <div className="mb-16 flex flex-col gap-8 -mx-8 md:-mx-16 lg:-mx-20">
+        <div className="mb-0 flex flex-col gap-px -mx-8 md:-mx-16 lg:-mx-20" style={{ background: `${color}20` }}>
           {project.parts.map((part, i) => (
-            <div key={i} className="p-8" style={{ backgroundColor: 'rgba(255,255,255,0.85)', borderLeft: `4px solid ${color}` }}>
+            <div key={i} className="p-8" style={{ backgroundColor: 'rgba(255,255,255,0.75)' }}>
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-7 h-7 text-white text-xs font-bold flex items-center justify-center shrink-0" style={{ backgroundColor: color }}>
                   {i + 1}
@@ -156,24 +156,6 @@ export default function ProjectDetail() {
               {part.gif && (
                 <div className="w-full rounded-sm overflow-hidden mb-6" style={{ aspectRatio: '16/9', backgroundColor: `${color}10` }}>
                   <img src={part.gif} alt="Demo" className="w-full h-full object-cover" />
-                </div>
-              )}
-
-              {part.showSkills && project.techBreakdown && (
-                <div className="mb-5">
-                  <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">Skills</p>
-                  <div className="flex flex-wrap gap-2">
-                    {[...new Set(Object.values(project.techBreakdown).flat())].map(item => (
-                      <span key={item} className="text-xs px-2.5 py-1 border text-muted rounded-sm" style={{ borderColor: `${color}30` }}>{item}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {part.futurePlans && (
-                <div className="mb-6 border-l-2 pl-4" style={{ borderColor: `${color}50` }}>
-                  <p className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted">Future Plans</p>
-                  <p className="text-muted text-sm leading-relaxed">{part.futurePlans}</p>
                 </div>
               )}
 
@@ -201,7 +183,25 @@ export default function ProjectDetail() {
         </div>
       )}
 
+      {(project.parts?.some(p => p.showSkills) && project.techBreakdown) && (
+        <div className="mb-0 -mx-8 md:-mx-16 lg:-mx-20 px-8 md:px-16 lg:px-20 pt-8 pb-6" style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Skills</p>
+          <div className="flex flex-wrap gap-2">
+            {[...new Set(Object.values(project.techBreakdown).flat())].map(item => (
+              <span key={item} className="text-xs px-2.5 py-1 border text-muted rounded-sm" style={{ borderColor: `${color}30` }}>{item}</span>
+            ))}
+          </div>
+        </div>
+      )}
 
+      {project.parts?.some(p => p.futurePlans) && (
+        <div className="mb-12 -mx-8 md:-mx-16 lg:-mx-20 px-8 md:px-16 lg:px-20 py-8" style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
+          <div className="border-l-2 pl-4" style={{ borderColor: `${color}50` }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted">Future Plans</p>
+            <p className="text-muted text-sm leading-relaxed">{project.parts.find(p => p.futurePlans)?.futurePlans}</p>
+          </div>
+        </div>
+      )}
 
       <div className="border-t pt-12" style={{ borderColor: `${color}30` }}>
         <p className="text-muted text-xs uppercase tracking-widest mb-6">More projects</p>
