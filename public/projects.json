@@ -64,7 +64,8 @@
       {
         "label": "V1 — PitLane AI (Twelve Labs)",
         "demo": "https://pitai.onrender.com/",
-        "summary": "Built at the Voxel51 Hackathon (April 2026) with Team NUPitlane. Powered by two Twelve Labs models — Pegasus for whole-video semantic analysis and Marengo for video search. Won the Voxel51 + Twelve Labs Computer Vision Hackathon at Northeastern. Ships as a FiftyOne plugin and a standalone React + FastAPI web app.",
+        "github": "https://github.com/Adityaagulatii/PitAI",
+        "summary": "Powered by two Twelve Labs models — Pegasus for whole-video semantic analysis and Marengo for video search. Won the Voxel51 + Twelve Labs Computer Vision Hackathon at Northeastern. Ships as a FiftyOne plugin and a standalone React + FastAPI web app.",
         "bullets": [
           "Pegasus watches the full lap and finds errors across 4 categories: Racing Line, Braking, Throttle & Traction, Car Control",
           "Find Best Moments across 6 categories — smooth apex, clean acceleration, perfect racing line, and more",
@@ -76,7 +77,8 @@
       {
         "label": "V2 — Apex AI (Fully Local)",
         "demo": "https://apexai-obcvp3fpojytbhwchupwmc.streamlit.app/",
-        "summary": "Built for Cursor Boston Hackathon (May 2026). Replaces all paid APIs with a 5-stage local pipeline — Florence-2 + Ollama only. No cloud, no cost. Supports karting, biking, and cycling from a single onboard video.",
+        "github": "https://github.com/Adityaagulatii/ApexAI",
+        "summary": "I wanted to avoid relying on paid API models and instead explore how far a fully local, modular pipeline could go — breaking the task into small pieces each handled by a lightweight local model. Supports karting, biking, and cycling from a single onboard video.",
         "bullets": [
           "Stage 1: CV events loader — YOLOv8n + Farneback optical flow extracts braking, racing line, and speed delta events with severity scores",
           "Stage 2: Florence-2-base (232M params, CPU) triages each keyframe — vehicle_visible, in_corner, obstacle_ahead via <CAPTION> + <OD> tasks",
@@ -95,11 +97,11 @@
       "V2 — AI": ["Florence-2-base", "Ollama llava", "Ollama llama3.2", "Streamlit"]
     },
     "challenges": "V1: Twelve Labs returns rich but unstructured observations — getting Groq LLaMA to extract valid JSON performance scores without hallucinating required careful prompt engineering and retry logic. V2: Florence-2's <OD> task on CPU is ~1–3s per frame — running it on every frame would take hours. The fix was a two-gate system: only triage keyframes flagged by the CV events loader, then only invoke llava on frames that pass Florence-2's severity threshold.",
-    "learnings": "The same product built twice on different constraints teaches you what actually matters. V1 showed that semantic video understanding (Pegasus) produces qualitatively better coaching than frame-level CV alone. V2 showed that parallelising the LLM writing stage (asyncio + ThreadPool) is what makes a 5-stage pipeline feel fast — the bottleneck isn't the model, it's waiting for sequential I/O.",
-    "tags": ["Twelve Labs", "YOLOv8n", "Florence-2", "Ollama", "FastAPI", "React", "FiftyOne", "MediaPipe", "Python"],
+    "learnings": "The API approach (V1) is undeniably more reliable — Twelve Labs Pegasus produces richer, more accurate coaching than anything a local pipeline can match today. But the modular local approach (V2) showed that dividing the problem into small focused tasks — each handled by the right lightweight model — gets you surprisingly far without spending a dollar. The two versions are not competing; they represent two different constraints, and both are worth knowing.",
+    "tags": [],
     "image": "/images/projects/apexai-thumb.png",
     "demoGif": "/images/projects/apexai-demo.gif",
-    "github": "https://github.com/pankhuri0209/NUPitlane-PitlaneAI",
+    "github": "",
     "demo": "",
     "featured": true,
     "hackathon": "Voxel51 Hackathon · April 2026"

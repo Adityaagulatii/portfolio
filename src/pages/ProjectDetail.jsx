@@ -39,11 +39,25 @@ export default function ProjectDetail() {
   const color = project.color || '#f97316'
 
   return (
-    <div
-      className="min-h-screen animate-fade-in"
-      style={{ backgroundColor: `${color}0c` }}
-    >
-    <div className="px-8 md:px-16 lg:px-20 py-24">
+    <div className="min-h-screen animate-fade-in" style={{ backgroundColor: `${color}0c` }}>
+
+      {/* Full-bleed hero image — outside padded wrapper */}
+      <div className="w-full aspect-[21/9] overflow-hidden" style={{ backgroundColor: `${color}18` }}>
+        <img
+          src={project.demoGif || project.image}
+          alt={project.title}
+          className="w-full h-full object-cover opacity-90"
+          onError={e => {
+            if (project.demoGif && e.target.src.includes(project.demoGif)) {
+              e.target.src = project.image
+            } else {
+              e.target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center"><span class="text-7xl opacity-20">${project.emoji || '🛠️'}</span></div>`
+            }
+          }}
+        />
+      </div>
+
+      <div className="px-8 md:px-16 lg:px-20 py-16">
       <Link to="/" className="inline-flex items-center gap-2 text-muted text-sm transition-colors mb-12" style={{ color: 'inherit' }}
         onMouseEnter={e => e.currentTarget.style.color = color}
         onMouseLeave={e => e.currentTarget.style.color = ''}
@@ -53,21 +67,6 @@ export default function ProjectDetail() {
         </svg>
         Back
       </Link>
-
-      <div className="w-full aspect-[21/9] bg-surface overflow-hidden mb-12 -mx-8 md:-mx-16 lg:-mx-20" style={{ width: 'calc(100% + 4rem)', maxWidth: 'none' }}>
-        <img
-          src={project.demoGif || project.image}
-          alt={project.title}
-          className="w-full h-full object-cover opacity-90"
-          onError={e => {
-            if (project.demoGif && e.target.src.includes(project.demoGif)) {
-              e.target.src = project.image
-            } else {
-              e.target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-surface"><span class="text-7xl opacity-30">${project.emoji || '🛠️'}</span></div>`
-            }
-          }}
-        />
-      </div>
 
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-6">
         <div>
@@ -96,9 +95,11 @@ export default function ProjectDetail() {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-12">
-        {project.tags.map(tag => <Tag key={tag} label={tag} />)}
-      </div>
+      {project.tags?.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-12">
+          {project.tags.map(tag => <Tag key={tag} label={tag} />)}
+        </div>
+      )}
 
       <div className="mb-12">
         <p className="text-dark text-base leading-relaxed">{project.description}</p>
@@ -108,17 +109,17 @@ export default function ProjectDetail() {
       </div>
 
       {project.parts?.length > 0 && (
-        <div className="mb-16 grid sm:grid-cols-2 lg:grid-cols-2 gap-px bg-border">
+        <div className="mb-16 flex flex-col gap-px" style={{ background: `${color}20` }}>
           {project.parts.map((part, i) => (
-            <div key={i} className="p-6" style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}>
+            <div key={i} className="p-8" style={{ backgroundColor: 'rgba(255,255,255,0.75)' }}>
               <div className="flex items-center gap-3 mb-4">
-                <span className="w-6 h-6 text-white text-xs font-bold flex items-center justify-center shrink-0" style={{ backgroundColor: color }}>
+                <span className="w-7 h-7 text-white text-xs font-bold flex items-center justify-center shrink-0" style={{ backgroundColor: color }}>
                   {i + 1}
                 </span>
-                <h3 className="font-semibold text-dark text-sm">{part.label}</h3>
+                <h3 className="font-bold text-dark">{part.label}</h3>
               </div>
-              <p className="text-muted text-sm leading-relaxed mb-4">{part.summary}</p>
-              <ul className="space-y-2 mb-5">
+              <p className="text-muted text-sm leading-relaxed mb-5 max-w-3xl">{part.summary}</p>
+              <ul className="space-y-2 mb-6 max-w-3xl">
                 {part.bullets.map((b, j) => (
                   <li key={j} className="flex gap-2 text-sm text-muted">
                     <span className="mt-0.5 shrink-0" style={{ color }}>→</span>
@@ -126,13 +127,25 @@ export default function ProjectDetail() {
                   </li>
                 ))}
               </ul>
-              {part.demo && (
-                <a href={part.demo} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-sm transition-opacity hover:opacity-80"
-                  style={{ backgroundColor: `${color}18`, color }}>
-                  Live Demo ↗
-                </a>
-              )}
+              <div className="flex gap-3 flex-wrap">
+                {part.github && (
+                  <a href={part.github} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 border rounded-sm transition-opacity hover:opacity-70"
+                    style={{ borderColor: `${color}40`, color }}>
+                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                    GitHub
+                  </a>
+                )}
+                {part.demo && (
+                  <a href={part.demo} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-sm transition-opacity hover:opacity-80 text-white"
+                    style={{ backgroundColor: color }}>
+                    Live Demo ↗
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
