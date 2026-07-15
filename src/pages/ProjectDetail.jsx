@@ -108,6 +108,17 @@ export default function ProjectDetail() {
         )}
       </div>
 
+      {project.techBreakdown && (
+        <div className="mb-10">
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Skills</p>
+          <div className="flex flex-wrap gap-2">
+            {[...new Set(Object.values(project.techBreakdown).flat())].map(item => (
+              <span key={item} className="text-xs px-2.5 py-1 border border-border text-muted rounded-sm">{item}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
       {project.inspiration && (
         <div className="mb-10 border-l-2 pl-6" style={{ borderColor: color }}>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color }}>Inspiration</p>
@@ -115,14 +126,10 @@ export default function ProjectDetail() {
         </div>
       )}
 
-      {project.techBreakdown && (
-        <div className="mb-12">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Skills</p>
-          <div className="flex flex-wrap gap-2">
-            {[...new Set(Object.values(project.techBreakdown).flat())].map(item => (
-              <span key={item} className="text-xs px-2.5 py-1 border border-border text-muted rounded-sm">{item}</span>
-            ))}
-          </div>
+      {project.futurePlans && (
+        <div className="mb-12 border-l-2 pl-6" style={{ borderColor: `${color}60` }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">Future Plans</p>
+          <p className="text-muted text-sm leading-relaxed">{project.futurePlans}</p>
         </div>
       )}
 
