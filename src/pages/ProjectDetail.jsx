@@ -109,7 +109,7 @@ export default function ProjectDetail() {
       </div>
 
       {project.parts?.length > 0 && (
-        <div className="mb-16 flex flex-col gap-px" style={{ background: `${color}20` }}>
+        <div className="mb-16 flex flex-col gap-px -mx-8 md:-mx-16 lg:-mx-20" style={{ background: `${color}20` }}>
           {project.parts.map((part, i) => (
             <div key={i} className="p-8" style={{ backgroundColor: 'rgba(255,255,255,0.75)' }}>
               <div className="flex items-center gap-3 mb-4">
@@ -118,8 +118,8 @@ export default function ProjectDetail() {
                 </span>
                 <h3 className="font-bold text-dark">{part.label}</h3>
               </div>
-              <p className="text-muted text-sm leading-relaxed mb-5 max-w-3xl">{part.summary}</p>
-              <ul className="space-y-2 mb-6 max-w-3xl">
+              <p className="text-muted text-sm leading-relaxed mb-5">{part.summary}</p>
+              <ul className="space-y-2 mb-6">
                 {part.bullets.map((b, j) => (
                   <li key={j} className="flex gap-2 text-sm text-muted">
                     <span className="mt-0.5 shrink-0" style={{ color }}>→</span>
@@ -154,7 +154,7 @@ export default function ProjectDetail() {
       {project.highlights?.length > 0 && (
         <div className="mb-16">
           <h2 className="text-2xl font-black text-dark tracking-tight mb-8">Key Highlights</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mx-8 md:-mx-16 lg:-mx-20">
             {project.highlights.map((item, i) => (
               <div key={i} className="flex gap-3 p-5 bg-surface">
                 <span className="text-accent mt-0.5 shrink-0 text-sm">→</span>
@@ -168,7 +168,7 @@ export default function ProjectDetail() {
       {project.techBreakdown && (
         <div className="mb-16">
           <h2 className="text-2xl font-black text-dark tracking-tight mb-8">Tech Stack</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mx-8 md:-mx-16 lg:-mx-20">
             {Object.entries(project.techBreakdown).map(([category, items]) => (
               <div key={category} className="p-5 bg-surface">
                 <p className="text-xs font-semibold text-muted uppercase tracking-widest mb-3">{category}</p>
@@ -182,7 +182,7 @@ export default function ProjectDetail() {
       )}
 
       {(project.challenges || project.learnings) && (
-        <div className="grid sm:grid-cols-2 gap-px bg-border mb-16">
+        <div className="grid sm:grid-cols-2 gap-px bg-border mb-16 -mx-8 md:-mx-16 lg:-mx-20">
           {project.challenges && (
             <div className="p-6 bg-surface">
               <h3 className="text-xs font-semibold text-dark mb-3 uppercase tracking-widest">Challenges</h3>
