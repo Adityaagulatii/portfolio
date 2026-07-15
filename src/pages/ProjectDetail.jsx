@@ -152,38 +152,6 @@ export default function ProjectDetail() {
       )}
 
 
-      {project.techBreakdown && (
-        <div className="mb-16">
-          <h2 className="text-2xl font-black text-dark tracking-tight mb-8">Tech Stack</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mx-8 md:-mx-16 lg:-mx-20">
-            {Object.entries(project.techBreakdown).map(([category, items]) => (
-              <div key={category} className="p-5 bg-surface">
-                <p className="text-xs font-semibold text-muted uppercase tracking-widest mb-3">{category}</p>
-                <div className="flex flex-wrap gap-2">
-                  {items.map(item => <Tag key={item} label={item} />)}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {(project.challenges || project.learnings) && (
-        <div className="grid sm:grid-cols-2 gap-px bg-border mb-16 -mx-8 md:-mx-16 lg:-mx-20">
-          {project.challenges && (
-            <div className="p-6 bg-surface">
-              <h3 className="text-xs font-semibold text-dark mb-3 uppercase tracking-widest">Challenges</h3>
-              <p className="text-muted text-sm leading-relaxed">{project.challenges}</p>
-            </div>
-          )}
-          {project.learnings && (
-            <div className="p-6" style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}>
-              <h3 className="text-xs font-semibold text-dark mb-3 uppercase tracking-widest">What I Learned</h3>
-              <p className="text-muted text-sm leading-relaxed">{project.learnings}</p>
-            </div>
-          )}
-        </div>
-      )}
 
       <div className="border-t pt-12" style={{ borderColor: `${color}30` }}>
         <p className="text-muted text-xs uppercase tracking-widest mb-6">More projects</p>
