@@ -134,9 +134,9 @@ export default function ProjectDetail() {
       )}
 
       {project.parts?.length > 0 && (
-        <div className="mb-16 flex flex-col gap-px -mx-8 md:-mx-16 lg:-mx-20" style={{ background: `${color}20` }}>
+        <div className="mb-16 flex flex-col gap-8 -mx-8 md:-mx-16 lg:-mx-20">
           {project.parts.map((part, i) => (
-            <div key={i} className="p-8" style={{ backgroundColor: 'rgba(255,255,255,0.75)' }}>
+            <div key={i} className="p-8" style={{ backgroundColor: 'rgba(255,255,255,0.85)', borderLeft: `4px solid ${color}` }}>
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-7 h-7 text-white text-xs font-bold flex items-center justify-center shrink-0" style={{ backgroundColor: color }}>
                   {i + 1}
