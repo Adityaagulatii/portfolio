@@ -44,7 +44,7 @@ export default function ProjectDetail() {
       {/* Full-bleed hero image — outside padded wrapper */}
       <div className="w-full aspect-[21/9] overflow-hidden" style={{ backgroundColor: `${color}18` }}>
         <img
-          src={project.demoGif || project.image}
+          src={project.image}
           alt={project.title}
           className="w-full h-full object-cover opacity-90"
           onError={e => {
@@ -153,12 +153,6 @@ export default function ProjectDetail() {
                 ))}
               </ul>
 
-              {part.gif && (
-                <div className="w-full rounded-sm overflow-hidden mb-6" style={{ aspectRatio: '16/9', backgroundColor: `${color}10` }}>
-                  <img src={part.gif} alt="Demo" className="w-full h-full object-cover" />
-                </div>
-              )}
-
               <div className="flex gap-3 flex-wrap">
                 {part.github && (
                   <a href={part.github} target="_blank" rel="noopener noreferrer"
@@ -178,6 +172,12 @@ export default function ProjectDetail() {
                   </a>
                 )}
               </div>
+
+              {part.gif && (
+                <div className="mt-6 overflow-hidden rounded-sm" style={{ maxWidth: '560px', backgroundColor: `${color}10` }}>
+                  <img src={part.gif} alt="Demo" className="w-full h-auto block" />
+                </div>
+              )}
             </div>
           ))}
         </div>
