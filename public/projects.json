@@ -60,7 +60,6 @@
     "emoji": "🏎️",
     "description": "AI race engineer that watches your onboard karting or motorcycle lap and delivers structured coaching — timestamped mistakes, best moments, performance scores, and lap time loss estimates. Built in two separate versions.",
     "inspiration": "I got the initial idea at the Vision Hackathon. Most teams were focused on executing existing ideas and hoping their implementation would stand out — I took a different approach and worked on something I was genuinely passionate about: Formula 1. I've always been drawn to finding ways to minimize the cost of sensors and heavy data processing in motorsport. That's where Apex/PitLane AI came from — upload an onboard lap video and get back structured race engineering insights. What race engineers do by analyzing sensor telemetry, this does from video alone.",
-    "futurePlans": "Experiment further with modularity — local models feel like the right direction here. The pipeline is computationally heavy, and rather than building a general-purpose system, a more expert-driven approach would be stronger: purpose-built pipelines that only activate models relevant to the specific application, and deliver results shaped around what that sport or discipline actually demands.",
     "longDescription": "",
     "parts": [
       {
@@ -80,6 +79,9 @@
         "label": "V2 — Apex AI (Fully Local)",
         "demo": "https://apexai-obcvp3fpojytbhwchupwmc.streamlit.app/",
         "github": "https://github.com/Adityaagulatii/ApexAI",
+        "gif": "/images/projects/apexai-demo.gif",
+        "showSkills": true,
+        "futurePlans": "Experiment further with modularity — local models feel like the right direction here. The pipeline is computationally heavy, and rather than building a general-purpose system, a more expert-driven approach would be stronger: purpose-built pipelines that only activate models relevant to the specific application, and deliver results shaped around what that sport or discipline actually demands.",
         "summary": "I wanted to avoid relying on paid API models and instead explore how far a fully local, modular pipeline could go — breaking the task into small pieces each handled by a lightweight local model. Supports karting, biking, and cycling from a single onboard video.",
         "bullets": [
           "Stage 1: CV events loader — YOLOv8n + Farneback optical flow extracts braking, racing line, and speed delta events with severity scores",

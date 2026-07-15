@@ -108,7 +108,7 @@ export default function ProjectDetail() {
         )}
       </div>
 
-      {project.techBreakdown && (
+      {project.techBreakdown && !project.parts?.some(p => p.showSkills) && (
         <div className="mb-10">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Skills</p>
           <div className="flex flex-wrap gap-2">
@@ -152,6 +152,31 @@ export default function ProjectDetail() {
                   </li>
                 ))}
               </ul>
+
+              {part.gif && (
+                <div className="w-full rounded-sm overflow-hidden mb-6" style={{ aspectRatio: '16/9', backgroundColor: `${color}10` }}>
+                  <img src={part.gif} alt="Demo" className="w-full h-full object-cover" />
+                </div>
+              )}
+
+              {part.showSkills && project.techBreakdown && (
+                <div className="mb-5">
+                  <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">Skills</p>
+                  <div className="flex flex-wrap gap-2">
+                    {[...new Set(Object.values(project.techBreakdown).flat())].map(item => (
+                      <span key={item} className="text-xs px-2.5 py-1 border text-muted rounded-sm" style={{ borderColor: `${color}30` }}>{item}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {part.futurePlans && (
+                <div className="mb-6 border-l-2 pl-4" style={{ borderColor: `${color}50` }}>
+                  <p className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted">Future Plans</p>
+                  <p className="text-muted text-sm leading-relaxed">{part.futurePlans}</p>
+                </div>
+              )}
+
               <div className="flex gap-3 flex-wrap">
                 {part.github && (
                   <a href={part.github} target="_blank" rel="noopener noreferrer"
