@@ -41,22 +41,6 @@ export default function ProjectDetail() {
   return (
     <div className="min-h-screen animate-fade-in" style={{ backgroundColor: `${color}0c` }}>
 
-      {/* Full-bleed hero image — outside padded wrapper */}
-      <div className="w-full aspect-[21/9] overflow-hidden" style={{ backgroundColor: `${color}18` }}>
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover opacity-90"
-          onError={e => {
-            if (project.demoGif && e.target.src.includes(project.demoGif)) {
-              e.target.src = project.image
-            } else {
-              e.target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center"><span class="text-7xl opacity-20">${project.emoji || '🛠️'}</span></div>`
-            }
-          }}
-        />
-      </div>
-
       <div className="px-8 md:px-16 lg:px-20 py-16">
       <Link to="/" className="inline-flex items-center gap-2 text-muted text-sm transition-colors mb-12" style={{ color: 'inherit' }}
         onMouseEnter={e => e.currentTarget.style.color = color}
@@ -174,7 +158,7 @@ export default function ProjectDetail() {
               </div>
 
               {part.gif && (
-                <div className="mt-6 overflow-hidden rounded-sm" style={{ maxWidth: '560px', backgroundColor: `${color}10` }}>
+                <div className="mt-6 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
                   <img src={part.gif} alt="Demo" className="w-full h-auto block" />
                 </div>
               )}
