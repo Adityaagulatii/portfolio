@@ -14,8 +14,8 @@ export default function Home() {
       }}
     >
       <Hero />
-      <Experience />
       <ProjectsGrid />
+      <Experience />
       <Contact />
     </main>
   )

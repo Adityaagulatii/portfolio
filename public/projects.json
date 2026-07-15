@@ -66,7 +66,7 @@
         "label": "V1 — PitLane AI (Twelve Labs)",
         "demo": "https://pitai.onrender.com/",
         "github": "https://github.com/Adityaagulatii/PitAI",
-        "summary": "Powered by two Twelve Labs models — Pegasus for whole-video semantic analysis and Marengo for video search. Won the Voxel51 + Twelve Labs Computer Vision Hackathon at Northeastern University.",
+        "summary": "Powered by two Twelve Labs models — Pegasus for whole-video semantic analysis and Marengo for video search. Won the Twelve Labs Computer Vision Hackathon at Northeastern University.",
         "bullets": [
           "Pegasus watches the full lap and finds errors across 4 categories: Racing Line, Braking, Throttle & Traction, Car Control",
           "Find Best Moments across 6 categories — smooth apex, clean acceleration, perfect racing line, and more",
@@ -108,7 +108,7 @@
     "github": "",
     "demo": "",
     "featured": true,
-    "hackathon": "Voxel51 Hackathon · April 2026"
+    "hackathon": "Twelve Labs CV Hackathon · April 2026"
   },
   {
     "id": "edge-ai-multisensor",
