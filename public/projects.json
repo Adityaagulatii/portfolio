@@ -59,6 +59,7 @@
     "tagline": "Vision-only AI race engineer — no sensors, just video",
     "emoji": "🏎️",
     "description": "AI race engineer that watches your onboard karting or motorcycle lap and delivers structured coaching — timestamped mistakes, best moments, performance scores, and lap time loss estimates. Built in two separate versions.",
+    "inspiration": "I got the initial idea at the Vision Hackathon. Most teams were focused on executing existing ideas and hoping their implementation would stand out — I took a different approach and worked on something I was genuinely passionate about: Formula 1. I've always been drawn to finding ways to minimize the cost of sensors and heavy data processing in motorsport. That's where Apex/PitLane AI came from — upload an onboard lap video and get back structured race engineering insights. What race engineers do by analyzing sensor telemetry, this does from video alone.",
     "longDescription": "",
     "parts": [
       {
