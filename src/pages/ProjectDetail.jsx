@@ -151,19 +151,6 @@ export default function ProjectDetail() {
         </div>
       )}
 
-      {project.highlights?.length > 0 && (
-        <div className="mb-16">
-          <h2 className="text-2xl font-black text-dark tracking-tight mb-8">Key Highlights</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mx-8 md:-mx-16 lg:-mx-20">
-            {project.highlights.map((item, i) => (
-              <div key={i} className="flex gap-3 p-5 bg-surface">
-                <span className="text-accent mt-0.5 shrink-0 text-sm">→</span>
-                <p className="text-muted text-sm leading-relaxed">{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {project.techBreakdown && (
         <div className="mb-16">
