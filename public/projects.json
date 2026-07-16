@@ -165,6 +165,7 @@
     "challenges": "The KCF tracker drifts onto walls when the target is lost — fixed with a hard YOLO veto rule: if YOLO runs and finds zero people, the tracker output is discarded entirely, no exceptions. On the hardware side, the stock Elegoo firmware required a reset after every BLE disconnect — a custom Arduino sketch fixes this by restarting BLE advertising automatically on disconnect.",
     "learnings": "The IMU isn't tracking the person — it's tracking the robot. Using accelerometer shake to skip ReID on blurry frames and gyro yaw to gate tracker re-init during fast turns made the system dramatically more robust without adding any extra sensors. The right question wasn't 'how do I track the person better' but 'how do I know when not to trust the tracker at all'.",
     "tags": [],
+    "gif": "/images/projects/robot-demo.gif",
     "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
     "github": "https://github.com/Adityaagulatii",
     "demo": "",
