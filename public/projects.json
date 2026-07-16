@@ -189,6 +189,7 @@
     "challenges": "MobileUNet — despite having fewer parameters than UNet — was the slowest model at inference. The inverted residual blocks with depthwise separable convolutions that make MobileNet efficient on classification don't translate well to dense segmentation at 256×256 resolution. ELUNet's single-conv blocks with batch norm proved both faster and more quantization-friendly than MobileUNet's expanded residuals.",
     "learnings": "The metric that matters for satellite hardware isn't F1 alone — it's F1 per millisecond per kilobyte. ELUNet's aggressive channel reduction (base_ch=8 vs 16 for UNet) and single-conv blocks make it quantization-friendly: INT8 drops F1 by only 0.003 while cutting model size 3.86×. The dual output head — predicting segmentation and distance maps simultaneously — also gave sub-pixel centroid accuracy through trilateration without adding any post-processing overhead.",
     "tags": [],
+    "gif": "/images/projects/star-tracker-grid.png",
     "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",
     "github": "https://github.com/Adityaagulatii/star_Tracker_cnn",
     "demo": "",
