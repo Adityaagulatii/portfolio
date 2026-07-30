@@ -19,6 +19,7 @@
           "GRPO reward-based fine-tuning produced valid navigation graph JSON more reliably than supervised fine-tuning alone"
         ],
         "showcaseImages": [
+          "/images/projects/wayfinder-sample-output.jpg",
           "/images/projects/wayfinder-eval-06.png",
           "/images/projects/wayfinder-eval-04.png",
           "/images/projects/wayfinder-eval-05.png",
