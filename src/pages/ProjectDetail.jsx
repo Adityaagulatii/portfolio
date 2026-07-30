@@ -93,7 +93,7 @@ export default function ProjectDetail() {
       </div>
 
       {project.gif && (
-        <div className="mb-4 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
+        <div className="mb-4 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10`, maxWidth: project.gifMaxWidth || '100%' }}>
           <img src={project.gif} alt="Demo" className="w-full h-auto block" />
         </div>
       )}
