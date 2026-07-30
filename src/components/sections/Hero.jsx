@@ -19,11 +19,11 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-wrap items-center gap-4 text-sm mb-16">
-          <a href="#projects"
+          <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             className="px-6 py-3 bg-accent text-white font-semibold hover:bg-orange-500 transition-colors rounded-sm">
             View My Work →
-          </a>
-          <a href="/resume"
+          </button>
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
             className="px-6 py-3 border border-border text-muted hover:border-accent hover:text-accent transition-colors rounded-sm">
             Resume ↗
           </a>

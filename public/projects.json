@@ -9,7 +9,7 @@
     "longDescription": "",
     "parts": [
       {
-        "label": "Part 1 — Local VLM Pipeline",
+        "label": "Part 1 — VLM Floorplan Pipeline",
         "summary": "Fine-tuned Qwen3-VL-8B to convert raw floorplan images into structured navigation graphs — tackling the hardest input problem: any arbitrary floor plan, any format.",
         "bullets": [
           "3-stage LoRA + GRPO fine-tuning on Qwen3-VL-8B",
@@ -20,34 +20,29 @@
       },
       {
         "label": "Part 2 — Kroger Grocery Navigation App",
-        "summary": "Voice-first, node-based navigation for Kroger stores. The Kroger Developer API exposes aisle-level product locations for 300,000+ products — WayfinderAI converts this into a live navigation graph. Won 1st Place at Hack@URI AI Track (30+ teams).",
+        "github": "https://github.com/Adityaagulatii/wayfinderai",
+        "gif": "/images/projects/wayfinderai-map.png",
+        "showSkills": true,
+        "summary": "Sequential 5-agent pipeline guides users through Kroger stores — from natural language shopping input to real-time shelf-position guidance — using only the Kroger Developer API. No beacons, no GPS. Won 1st Place at Hack@URI AI Track (30+ teams).",
         "bullets": [
-          "5-agent pipeline: store graph builder → LLM chatbot → route optimizer → OCR aisle reader → shelf scanner",
-          "Dijkstra vs Nearest-Neighbor dual routing — always picks the faster path",
-          "EasyOCR reads physical aisle signs (A1–A42) to confirm real-world location mid-route",
-          "YOLO-World detects any of 300,000+ Kroger products on shelf without retraining"
+          "Agent 0: Ollama llama3.2 converts recipes or meal ideas → verified Kroger shopping list with live price checks",
+          "Agent 1: Kroger API → NetworkX graph (34 aisles, 110+ connections) in <0.15s",
+          "Agent 2: Dual routing — Dijkstra in-order vs nearest-neighbor greedy; always picks 10-30% shorter path with real geometry-based turn directions",
+          "Agent 3: EasyOCR reads physical aisle signs (A1–A42) every 5th frame to confirm real-world location; Claude Vision fallback on low-confidence reads",
+          "Agent 4: YOLO-World open-vocabulary detection (no fine-tuning); 3-frame confirmation window; reports 9-region shelf position from bounding box centroid",
+          "FastAPI backend + React 18 frontend with interactive SVG store map and voice readout per direction"
         ]
       }
     ],
-    "highlights": [
-      "Part 1 — Local VLM: fine-tuned Qwen3-VL-8B via LoRA + GRPO for floorplan-to-navigation-graph generation",
-      "Part 2 — Kroger app: 5-agent pipeline converts Kroger API data into a live navigation graph in <10s",
-      "Dijkstra vs Nearest-Neighbor dual routing — always picks the faster path",
-      "EasyOCR reads physical aisle signs to confirm real-world location mid-route",
-      "YOLO-World detects any of 300,000+ products on shelf without retraining",
-      "Shipped live Vercel demo within 8 weeks"
-    ],
     "techBreakdown": {
       "Part 1 — VLM Pipeline": ["Qwen3-VL-8B", "LoRA", "GRPO", "Python"],
-      "Part 2 — Navigation App": ["Kroger API", "NetworkX", "Dijkstra", "EasyOCR", "YOLO-World", "Ollama llama3.2"],
+      "Part 2 — Navigation App": ["Kroger API", "NetworkX", "Dijkstra", "EasyOCR", "YOLO-World", "Ollama llama3.2", "Claude Vision"],
       "Backend": ["FastAPI", "Python"],
-      "Frontend": ["React", "PWA"]
+      "Frontend": ["React 18", "Vite"]
     },
-    "challenges": "The two hardest problems are at opposite ends: Part 1 deals with wildly inconsistent floorplan formats (hand-drawn, scanned, CAD) — solved with progressive fine-tuning. Part 2 deals with real-world location confirmation without GPS — solved with EasyOCR reading physical aisle signs and a Claude Vision fallback.",
-    "learnings": "Splitting a problem into independent parallel tracks is underrated. Part 1 and Part 2 were built separately, which meant neither blocked the other. The integration challenge comes later — but both are stronger for having been developed independently first.",
-    "tags": ["Python", "Qwen3-VL-8B", "YOLOv8", "LoRA", "GRPO", "FastAPI", "React", "NetworkX", "EasyOCR"],
+    "tags": [],
     "image": "/images/projects/wayfinderai-thumb.jpg",
-    "github": "https://github.com/Adityaagulatii",
+    "github": "https://github.com/Adityaagulatii/wayfinderai",
     "demo": "",
     "featured": true,
     "hackathon": "Hack@URI AI Track · 1st Place"
