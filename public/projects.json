@@ -190,7 +190,10 @@
     "learnings": "The metric that matters for satellite hardware isn't F1 alone — it's F1 per millisecond per kilobyte. ELUNet's aggressive channel reduction (base_ch=8 vs 16 for UNet) and single-conv blocks make it quantization-friendly: INT8 drops F1 by only 0.003 while cutting model size 3.86×. The dual output head — predicting segmentation and distance maps simultaneously — also gave sub-pixel centroid accuracy through trilateration without adding any post-processing overhead.",
     "tags": [],
     "gif": "/images/projects/star-tracker-grid.png",
-    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",
+    "showcaseImages": [
+      "https://raw.githubusercontent.com/Adityaagulatii/star_Tracker_cnn/main/results/compare_results.png"
+    ],
+    "image": "https://raw.githubusercontent.com/Adityaagulatii/star_Tracker_cnn/main/sample.png",
     "github": "https://github.com/Adityaagulatii/star_Tracker_cnn",
     "demo": "",
     "featured": false

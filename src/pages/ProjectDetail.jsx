@@ -93,8 +93,18 @@ export default function ProjectDetail() {
       </div>
 
       {project.gif && (
-        <div className="mb-10 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
+        <div className="mb-4 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
           <img src={project.gif} alt="Demo" className="w-full h-auto block" />
+        </div>
+      )}
+
+      {project.showcaseImages?.length > 0 && (
+        <div className="mb-10 flex flex-col gap-4">
+          {project.showcaseImages.map((src, i) => (
+            <div key={i} className="overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
+              <img src={src} alt={`Showcase ${i + 1}`} className="w-full h-auto block" />
+            </div>
+          ))}
         </div>
       )}
 
