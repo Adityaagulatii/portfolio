@@ -178,6 +178,16 @@ export default function ProjectDetail() {
                   <img src={part.gif} alt="Demo" className="w-full h-auto block" />
                 </div>
               )}
+
+              {part.showcaseImages?.length > 0 && (
+                <div className="mt-6 flex flex-col gap-3">
+                  {part.showcaseImages.map((src, k) => (
+                    <div key={k} className="overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
+                      <img src={src} alt={`Result ${k + 1}`} className="w-full h-auto block" />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

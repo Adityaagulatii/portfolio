@@ -9,13 +9,22 @@
     "longDescription": "",
     "parts": [
       {
-        "label": "Part 1 — VLM Floorplan Pipeline",
-        "summary": "Fine-tuned Qwen3-VL-8B to convert raw floorplan images into structured navigation graphs — tackling the hardest input problem: any arbitrary floor plan, any format.",
+        "label": "Part 1 — VLM Floorplan Pipeline (NaviGrid)",
+        "summary": "Built a fully automated 3-phase data pipeline to generate 4,248 VLM training pairs from 100 CubiCasa5K floor plans — zero manual annotation — then fine-tuned Qwen3-VL-8B via LoRA + GRPO to convert raw floor plan images into structured navigation graphs.",
         "bullets": [
-          "3-stage LoRA + GRPO fine-tuning on Qwen3-VL-8B",
-          "Input: hand-drawn sketches, scanned PDFs, or CAD exports",
-          "Output: structured navigation graph JSON ready for pathfinding",
-          "GRPO's reward-based signal produced valid graph JSON far more reliably than supervised fine-tuning alone"
+          "Phase 1: SVG parsing via ElementTree extracts room nodes (kitchen, hallway, bathroom, stairs) with bounding boxes and center coordinates",
+          "Phase 2: Algorithmic edge inference using proximity thresholds + corridor filtering + entrance-rooted BFS; direction-tagged ST/TL/TR/SA via atan2 geometry; LLaMA 3.2 generates plain English directions",
+          "Phase 3: 5-type QA pair generation (treemap, route, location-nav, spatial, multi-turn) → 4,248 pairs (3,824 train / 424 val) for Qwen3-VL fine-tuning",
+          "Baseline evaluation: direction similarity 0.746, plain English score 0.950, graph connectivity 100% — 8/15 inference successes (OOM crashes on remaining)",
+          "GRPO reward-based fine-tuning produced valid navigation graph JSON more reliably than supervised fine-tuning alone"
+        ],
+        "showcaseImages": [
+          "/images/projects/wayfinder-eval-06.png",
+          "/images/projects/wayfinder-eval-04.png",
+          "/images/projects/wayfinder-eval-05.png",
+          "/images/projects/wayfinder-eval-01.png",
+          "/images/projects/wayfinder-eval-02.png",
+          "/images/projects/wayfinder-eval-03.png"
         ]
       },
       {
