@@ -38,7 +38,7 @@ export default function ProjectDetail() {
       <div className="px-8 md:px-16 lg:px-20 py-16 max-w-5xl mx-auto">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-6 pt-8">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-8 pt-8">
           <div>
             <h1 className="text-4xl md:text-5xl font-black text-dark tracking-tight mb-3">{project.title}</h1>
             <p className="text-lg font-medium" style={{ color }}>{project.tagline}</p>
@@ -95,7 +95,7 @@ export default function ProjectDetail() {
           </div>
         )}
 
-        {/* Skills — always in same position, same style */}
+        {/* Skills */}
         {allSkills.length > 0 && (
           <div className="mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Skills</p>
@@ -107,6 +107,21 @@ export default function ProjectDetail() {
           </div>
         )}
 
+        {/* Highlights — for non-parts projects */}
+        {project.highlights?.length > 0 && (
+          <div className="mb-10">
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-4">How it works</p>
+            <ul className="space-y-3">
+              {project.highlights.map((h, i) => (
+                <li key={i} className="flex gap-3 text-sm text-muted">
+                  <span className="mt-0.5 shrink-0 font-bold" style={{ color }}>→</span>
+                  {h}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* Inspiration */}
         {project.inspiration && (
           <div className="mb-10 border-l-2 pl-6" style={{ borderColor: color }}>
@@ -115,11 +130,19 @@ export default function ProjectDetail() {
           </div>
         )}
 
-        {/* Future Plans (top-level) */}
-        {project.futurePlans && (
-          <div className="mb-12 border-l-2 pl-6" style={{ borderColor: `${color}60` }}>
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">Future Plans</p>
-            <p className="text-muted text-sm leading-relaxed">{project.futurePlans}</p>
+        {/* Challenges */}
+        {project.challenges && (
+          <div className="mb-6 border-l-2 pl-6" style={{ borderColor: `${color}70` }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">What I solved</p>
+            <p className="text-muted text-sm leading-relaxed">{project.challenges}</p>
+          </div>
+        )}
+
+        {/* Learnings */}
+        {project.learnings && (
+          <div className="mb-12 border-l-2 pl-6" style={{ borderColor: `${color}40` }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">What I learned</p>
+            <p className="text-muted text-sm leading-relaxed">{project.learnings}</p>
           </div>
         )}
 
@@ -180,7 +203,6 @@ export default function ProjectDetail() {
                   </div>
                 )}
 
-                {/* Part-level future plans */}
                 {part.futurePlans && (
                   <div className="mt-6 border-l-2 pl-4" style={{ borderColor: `${color}50` }}>
                     <p className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted">Future Plans</p>
