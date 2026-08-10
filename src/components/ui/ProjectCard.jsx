@@ -18,36 +18,22 @@ export default function ProjectCard({ project }) {
     >
       <div className="px-8 md:px-16 lg:px-20 py-8 md:py-10 flex items-center justify-between gap-6 md:gap-8">
         <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-4 mb-3">
-            <h3
-              className="font-black text-2xl md:text-3xl tracking-tight transition-colors duration-300"
-              style={{ color: hovered ? color : '#111111' }}
-            >
-              {project.title}
-            </h3>
-            {project.hackathon && (
-              <span className="text-xs font-mono text-muted hidden sm:inline">{project.hackathon}</span>
-            )}
-          </div>
+          <h3
+            className="font-black text-2xl md:text-3xl tracking-tight transition-colors duration-300 mb-3"
+            style={{ color: hovered ? color : '#111111' }}
+          >
+            {project.title}
+          </h3>
           <p className="text-sm leading-relaxed max-w-xl transition-colors duration-300"
             style={{ color: hovered ? `${color}cc` : '#888888' }}>
             {project.tagline}
           </p>
-          <div className="flex flex-wrap gap-1.5 mt-4">
-            {project.tags.slice(0, 5).map(tag => (
-              <span
-                key={tag}
-                className="text-xs px-2.5 py-1 border rounded-sm transition-all duration-300"
-                style={{
-                  borderColor: hovered ? `${color}50` : '#e0e0e0',
-                  color: hovered ? color : '#888888',
-                  backgroundColor: hovered ? `${color}12` : 'transparent',
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          {project.hackathon && (
+            <span className="inline-block mt-3 text-xs font-mono px-2 py-0.5 rounded-sm"
+              style={{ color, backgroundColor: `${color}15`, border: `1px solid ${color}30` }}>
+              {project.hackathon}
+            </span>
+          )}
         </div>
 
         <div
