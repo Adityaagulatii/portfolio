@@ -41,7 +41,7 @@ export default function ProjectDetail() {
   return (
     <div className="min-h-screen animate-fade-in" style={{ backgroundColor: `${color}0c` }}>
 
-      <div className="px-8 md:px-16 lg:px-20 py-16">
+      <div className="px-8 md:px-16 lg:px-20 py-16 max-w-5xl mx-auto">
       <Link to="/" className="inline-flex items-center gap-2 text-muted text-sm transition-colors mb-12" style={{ color: 'inherit' }}
         onMouseEnter={e => e.currentTarget.style.color = color}
         onMouseLeave={e => e.currentTarget.style.color = ''}
@@ -134,9 +134,9 @@ export default function ProjectDetail() {
       )}
 
       {project.parts?.length > 0 && (
-        <div className="mb-0 flex flex-col gap-px -mx-8 md:-mx-16 lg:-mx-20" style={{ background: `${color}20` }}>
+        <div className="mb-0 flex flex-col gap-px rounded-sm overflow-hidden" style={{ background: `${color}20` }}>
           {project.parts.map((part, i) => (
-            <div key={i} className="p-8" style={{ backgroundColor: 'rgba(255,255,255,0.75)' }}>
+            <div key={i} className="p-6 md:p-8" style={{ backgroundColor: 'rgba(255,255,255,0.75)' }}>
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-7 h-7 text-white text-xs font-bold flex items-center justify-center shrink-0" style={{ backgroundColor: color }}>
                   {i + 1}
@@ -180,7 +180,7 @@ export default function ProjectDetail() {
               )}
 
               {part.showcaseImages?.length > 0 && (
-                <div className="mt-6 flex flex-col gap-3">
+                <div className={`mt-6 gap-3 ${part.showcaseImages.length > 2 ? 'grid grid-cols-1 sm:grid-cols-2' : 'flex flex-col'}`}>
                   {part.showcaseImages.map((src, k) => (
                     <div key={k} className="overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
                       <img src={src} alt={`Result ${k + 1}`} className="w-full h-auto block" />
@@ -194,7 +194,7 @@ export default function ProjectDetail() {
       )}
 
       {(project.parts?.some(p => p.showSkills) && project.techBreakdown) && (
-        <div className="mb-0 -mx-8 md:-mx-16 lg:-mx-20 px-8 md:px-16 lg:px-20 pt-8 pb-6" style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
+        <div className="mb-0 px-6 md:px-8 pt-8 pb-6 rounded-sm" style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
           <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Skills</p>
           <div className="flex flex-wrap gap-2">
             {[...new Set(Object.values(project.techBreakdown).flat())].map(item => (
@@ -205,7 +205,7 @@ export default function ProjectDetail() {
       )}
 
       {project.parts?.some(p => p.futurePlans) && (
-        <div className="mb-12 -mx-8 md:-mx-16 lg:-mx-20 px-8 md:px-16 lg:px-20 py-8" style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
+        <div className="mb-12 px-6 md:px-8 py-8 rounded-sm" style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
           <div className="border-l-2 pl-4" style={{ borderColor: `${color}50` }}>
             <p className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted">Future Plans</p>
             <p className="text-muted text-sm leading-relaxed">{project.parts.find(p => p.futurePlans)?.futurePlans}</p>

@@ -8,7 +8,7 @@ export default function ProjectsGrid() {
     <section
       id="projects"
       className="border-t border-border"
-      style={{ scrollSnapAlign: 'start', minHeight: '100vh', overflowY: 'auto' }}
+      style={{ scrollSnapAlign: 'start', minHeight: '100vh' }}
     >
       <h2 className="text-5xl md:text-6xl font-black text-dark tracking-tight px-8 md:px-16 lg:px-20 pt-24 pb-16">
         Projects

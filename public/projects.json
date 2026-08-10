@@ -137,6 +137,7 @@
       "Architecture": ["Multi-threaded edge hubs", "CVC coordinator", "Scenario injection"],
       "Alerting": ["Telegram Bot API", "Dashboard (Tkinter)", "Log viewer"]
     },
+    "inspiration": "Most commercial edge AI hubs already use LLMs — but only to present data. The actual fault detection still runs on hard thresholds written by engineers: if temp > X, flag it. I wanted to build something that could reason about whether a reading is actually anomalous in context, not just compare it to a number someone set during installation. The Active Inference (IAIF) architecture gave me a framework for that — each hub maintains a belief state about its zone and updates it continuously, so the system can detect divergence from expected behavior rather than just threshold violations. The goal was an edge pipeline that gets smarter about what 'normal' looks like, without any cloud dependency or human-tuned rules.",
     "challenges": "Designing a two-level model hierarchy (hub LLM + CVC LLM) where each hub acts independently but the coordinator synthesises across all zones required careful message passing and timeout handling — if a hub is slow, the CVC can't block waiting for it.",
     "learnings": "Edge AI for physical infrastructure is fundamentally different from cloud AI — latency, reliability, and data residency constraints dominate design decisions more than raw accuracy. Running llama3.2 locally was non-negotiable for a real building deployment.",
     "tags": ["Python", "Ollama", "llama3.2", "Active Inference", "BMS", "Edge AI", "Telegram"],
@@ -151,29 +152,29 @@
     "title": "Intelligent Follow-Me Robot",
     "tagline": "Vision + IMU person-following robot — Android phone as the only sensor",
     "emoji": "🤖",
-    "description": "A person-following robot that uses an Android phone as its only sensor — streaming live video and IMU data over WiFi to a Flask server running the full vision pipeline. The server sends BLE motor commands to an Elegoo UNO R4 WiFi robot in real time, with no GPU required.",
-    "longDescription": "The pipeline runs frame-by-frame entirely on CPU. Each frame goes through adaptive YOLO26n detection, 3-zone ReID enrollment (head / upper / lower body MobileNetV2 embeddings + HSV colour histograms + gait signature), KCF tracking between YOLO frames, and Kalman smoothing — before a 3-stage safety check (Step 32 obstacle heuristics → local reflex layer → safety governor) approves the BLE command. IMU data gates ReID on shaky frames and suspends tracker re-init during fast turns. When the target is lost, gyro integration drives directional search sweeps until re-acquisition.",
+    "description": "A person-following robot that uses an Android phone as its only sensor — snapshot-polling video and streaming IMU data over WiFi to a Flask server running the full vision pipeline on CPU. The server sends BLE motor commands to an Elegoo UNO R4 WiFi robot in real time, with no GPU required.",
+    "longDescription": "The pipeline runs entirely on CPU. Each frame goes through adaptive YOLO26n detection (conf=0.35, imgsz=416), 3-zone MobileNetV2 ReID enrollment (head/upper/lower body embeddings + HSV histograms + gait), IoU-matched ReID between frames, KCF tracking between YOLO frames, and Kalman smoothing. A visual odometry module tracks heading_deg and delta_yaw per frame. Commands require 2-frame confirmation before being sent (person-fleeing bypass if area_ratio < 0.15). A 3-stage safety pipeline gates every command. When the target is lost, gyro-integrated search sweeps drive re-acquisition.",
     "highlights": [
-      "Android phone as the only sensor — IP Webcam MJPEG stream + /sensors.json IMU at ~50Hz",
-      "3-zone ReID: MobileNetV2 embeddings (head/upper/lower) + HSV colour histograms + gait (ankle oscillation)",
-      "Adaptive YOLO interval — motion-gated so YOLO only runs when needed; KCF handles in-between frames",
-      "Hard YOLO veto rule: zero-person detection immediately overrides tracker output (prevents wall drift)",
-      "3-stage safety pipeline: Step 32 heuristics → local reflex layer → safety governor",
-      "Lost-person recovery using gyro-integrated search sweeps with 15° direction flips"
+      "Android phone as the only sensor — IP Webcam /shot.jpg snapshot polling + DeviceMotion IMU at ~50Hz",
+      "3-zone ReID: MobileNetV2 embeddings (head/upper/lower) + HSV histograms + gait; IoU matching (≥0.20) between frames prevents stale index bugs",
+      "Visual odometry: optical-flow-based heading_deg and delta_yaw tracked per frame to inform directional control",
+      "Command debouncing: 2-frame confirmation before any BLE command fires; fleeing-person bypass when area_ratio < 0.15",
+      "Hard YOLO veto: zero-person detection immediately overrides tracker output, preventing wall-drift",
+      "3-stage safety pipeline: Step 32 obstacle heuristics → local reflex layer → safety governor"
     ],
     "techBreakdown": {
-      "Vision & Tracking": ["YOLO26n", "MobileNetV2 ReID", "KCF Tracker", "Kalman Filter", "MediaPipe Pose"],
-      "Sensors": ["Android IP Webcam (MJPEG)", "IMU (accel/gyro/rotation vector)"],
-      "Robot Control": ["BLE UART (bleak)", "Elegoo UNO R4 WiFi", "Flask", "Custom Arduino firmware"],
-      "Safety": ["Step 32 obstacle heuristics", "Local reflex layer", "Safety governor"]
+      "Vision & Tracking": ["YOLO26n", "MobileNetV2 ReID", "KCF Tracker", "Kalman Filter", "Visual Odometry"],
+      "Sensors": ["Android IP Webcam (/shot.jpg polling)", "IMU (accel/gyro/DeviceMotion)", "Pedometer"],
+      "Robot Control": ["BLE UART (bleak)", "Elegoo UNO R4 WiFi", "Flask + waitress", "Custom Arduino firmware"],
+      "Safety": ["Step 32 obstacle heuristics", "Local reflex layer", "Safety governor", "Command debouncing"]
     },
-    "challenges": "The KCF tracker drifts onto walls when the target is lost — fixed with a hard YOLO veto rule: if YOLO runs and finds zero people, the tracker output is discarded entirely, no exceptions. On the hardware side, the stock Elegoo firmware required a reset after every BLE disconnect — a custom Arduino sketch fixes this by restarting BLE advertising automatically on disconnect.",
-    "learnings": "The IMU isn't tracking the person — it's tracking the robot. Using accelerometer shake to skip ReID on blurry frames and gyro yaw to gate tracker re-init during fast turns made the system dramatically more robust without adding any extra sensors. The right question wasn't 'how do I track the person better' but 'how do I know when not to trust the tracker at all'.",
+    "challenges": "The KCF tracker drifts onto walls when the target is lost — fixed with a hard YOLO veto: if YOLO runs and finds zero people, tracker output is discarded entirely. ReID also suffered a stale index bug when person detections shifted between frames — solved by IoU-matching the current bounding box against the previous frame's detections (threshold ≥ 0.20) before committing to a gallery update.",
+    "learnings": "The IMU isn't tracking the person — it's tracking the robot. Using accelerometer shake to skip ReID on blurry frames and gyro yaw to gate tracker re-init during fast turns made the system dramatically more robust without adding any extra sensors. The command debouncing (2-frame confirmation) eliminated spurious BLE commands that were causing the robot to jitter, while the fleeing-person bypass ensured the robot could still react instantly when the target moved away fast.",
     "tags": [],
     "gif": "/images/projects/robot-demo.gif",
     "gifMaxWidth": "600px",
     "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
-    "github": "https://github.com/Adityaagulatii",
+    "github": "",
     "demo": "",
     "featured": true
   },

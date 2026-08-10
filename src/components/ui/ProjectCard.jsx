@@ -16,7 +16,7 @@ export default function ProjectCard({ project }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="px-8 md:px-16 lg:px-20 py-10 flex items-center justify-between gap-8">
+      <div className="px-8 md:px-16 lg:px-20 py-8 md:py-10 flex items-center justify-between gap-6 md:gap-8">
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline gap-4 mb-3">
             <h3
@@ -51,7 +51,7 @@ export default function ProjectCard({ project }) {
         </div>
 
         <div
-          className="shrink-0 w-32 h-20 md:w-48 md:h-28 overflow-hidden transition-all duration-300"
+          className="shrink-0 hidden sm:block w-36 h-24 md:w-48 md:h-28 overflow-hidden transition-all duration-300"
           style={{
             backgroundColor: `${color}18`,
             outline: hovered ? `2px solid ${color}40` : '2px solid transparent',
