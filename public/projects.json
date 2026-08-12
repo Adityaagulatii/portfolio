@@ -113,27 +113,43 @@
     "id": "edge-ai-multisensor",
     "color": "#10b981",
     "title": "Edge AI Multisensor System",
-    "tagline": "Distributed edge AI for building automation — no cloud, no hard thresholds",
+    "tagline": "Two-level edge AI for building HVAC — 5 hub threads, local LLMs, no cloud",
     "emoji": "⚡",
-    "description": "A two-level edge AI system that runs 5 parallel hub threads — each monitoring a dedicated building zone via real BMS sensor data — and a central coordinator that aggregates reports and escalates anomalies. All AI runs locally via Ollama. No cloud, no data leaving the building.",
-    "longDescription": "Each hub polls live VAV and RTU sensor readings every 5 seconds, computes divergence scores against setpoints using three IAIF triggers, and classifies events as moderate or critical. The Central Validation Coordinator aggregates all hub reports within a 12-second sync window, detects cross-zone anomalies, and sends alerts to engineers and operators via dual Telegram pipelines.",
-    "highlights": [
-      "5 parallel edge hub threads, each independently monitoring a dedicated building zone (26 VAVs + 4 RTUs across 5 zones)",
-      "Trigger 0 — Sensor Loss: 2 consecutive missing zone_temp readings → immediate critical escalation",
-      "Trigger 1 — Belief Divergence: overheating + undercooled zones / reportable zones; moderate >0.15, critical >0.40",
-      "Trigger 2 — EFE Power Error: actual PoE wattage >15% above expected (base 5000W + 50W/device) → moderate",
-      "Local Ollama llama3.2 auto-adjusts zone setpoints (clamped ±5°F) — no API calls, no data leaves the building",
-      "9 named fault scenarios: baseline, zone overheat, sensor loss, RTU fault, power surge, multi-hub crisis, and more",
-      "Dual Telegram pipelines: IoT Engineer (diagnostic summary + action code) and Building Operator (critical alert + inline buttons)"
+    "description": "A two-level edge AI system for building HVAC management. Five parallel hub threads each monitor a dedicated zone using real BMS sensor data and three IAIF triggers to classify anomalies. A Central Validation Coordinator aggregates all hub reports and escalates cross-zone faults via Telegram — all AI runs locally via Ollama, no data leaves the building.",
+    "inspiration": "Most commercial edge AI hubs already use LLMs — but only to present data. The actual fault detection still runs on hard thresholds written by engineers: if temp > X, flag it. I wanted to build something that could reason about whether a reading is actually anomalous in context, not just compare it to a number someone set during installation. The IAIF architecture gave me a framework for that — each hub maintains a belief state about its zone and updates it continuously, so the system detects divergence from expected behavior rather than just threshold violations.",
+    "challenges": "The hardest problem was the CVC sync window: the coordinator needs to collect reports from all 5 hubs and aggregate them without blocking on a slow hub. The 12-second timeout had to be tight enough to catch real cross-zone anomalies but loose enough to tolerate hub latency spikes. The other challenge was separating moderate from critical at the hub level — moderate triggers hub-level LLM auto-correction, while critical events skip the hub LLM and go straight to CVC escalation.",
+    "learnings": "The IAIF trigger structure is the key insight: the LLM only fires when Signal Lookout detects a genuine anomaly. In a clean building, Ollama never runs. This is the opposite of standard LLM pipelines where the model processes every data point — here the model is an exception handler, not a data processor. That constraint forces you to get the signal detection right before you ever think about the AI.",
+    "parts": [
+      {
+        "label": "Part 1 — Edge Hub Layer",
+        "summary": "Five independent hub threads each poll their zone every 5 seconds and run Signal Lookout — a 3-trigger IAIF gate that decides whether to invoke the LLM, auto-correct setpoints, or immediately escalate. Hub-1 monitors VAV-1–5 + RTU-6; Hub-2 monitors VAV-6–10 + RTU-9; Hub-3 monitors VAV-11–15 + RTU-10; Hub-4 monitors VAV-16–20 + RTU-11; Hub-5 monitors VAV-21–26.",
+        "bullets": [
+          "Trigger 0 — Sensor Loss: new No Data zone detected (zone_temp goes None) → immediate critical, bypasses hub LLM, goes straight to CVC",
+          "Trigger 1 — Belief Divergence: divergence_score = (overheating + undercooled zones) / reportable zones; moderate >0.15, critical >0.40; RTU discharge <45°F also fires",
+          "Trigger 2 — EFE Power Error: actual PoE wattage >15% above expected (base 5000W + 50W × WiFi device count) → moderate",
+          "Moderate severity: hub Ollama llama3.2 fires, parses ADJUST commands, auto-corrects zone setpoints clamped ±5°F",
+          "Critical severity: hub skips local LLM entirely — report forwarded to CVC queue immediately for building-level reasoning",
+          "Inputs per cycle: VAV zone temps + setpoints, RTU discharge temps, Cisco WiFi device count, PoE switch wattage, Open-Meteo weather"
+        ]
+      },
+      {
+        "label": "Part 2 — Central Validation Coordinator (CVC)",
+        "github": "https://github.com/Adityaagulatii/edge_ai",
+        "summary": "The CVC collects all 5 hub reports within a 12-second sync window, merges them into a building-level state, and runs a second Ollama llama3.2 pass if escalation criteria are met. Three action codes drive Telegram routing: URGENT/SHUTDOWN sends to both pipelines, MONITOR sends to the engineer only.",
+        "bullets": [
+          "Escalates if: building severity = critical, cross-zone anomalies (≥2 hubs affected), ≥2 hub LLM failures, or building divergence score >0.40",
+          "Pipeline A → IoT Engineer: full diagnostic summary + action code (URGENT / MONITOR / SHUTDOWN)",
+          "Pipeline B → Building Operator: plain-language critical alert + inline Telegram buttons for acknowledge/override",
+          "9 named fault scenarios with exact sensor overrides: baseline, clean_slate, zone_overheat, too_cold, sensor_loss, power_surge, rtu_fault, multi_hub_crisis, full_storm, spike",
+          "Full JSONL event logging: hub_sensor_data, hub_prompt, hub_llm_response, hub_action, cvc_prompt, cvc_llm_response, cvc_action, ollama_failure, and more"
+        ]
+      }
     ],
-    "inspiration": "Most commercial edge AI hubs already use LLMs — but only to present data. The actual fault detection still runs on hard thresholds written by engineers: if temp > X, flag it. I wanted to build something that could reason about whether a reading is actually anomalous in context, not just compare it to a number someone set during installation. The Active Inference (IAIF) architecture gave me a framework for that — each hub maintains a belief state about its zone and updates it continuously, so the system can detect divergence from expected behavior rather than just threshold violations.",
-    "challenges": "Designing a two-level model hierarchy where each hub acts independently but the coordinator synthesises across all zones required careful message passing and timeout handling — the CVC can't block waiting for a slow hub. Getting the 12-second sync window tight enough to catch cross-zone anomalies without dropping hub reports under load was the core engineering problem.",
-    "learnings": "Edge AI for physical infrastructure is fundamentally different from cloud AI — latency, reliability, and data residency constraints dominate design decisions more than raw accuracy. Running llama3.2 locally was non-negotiable for a real building deployment, and the IAIF trigger structure meant the LLM only fired when there was actually something to reason about.",
     "techBreakdown": {
-      "Edge AI": ["Ollama llama3.2", "Active Inference (IAIF)", "Python"],
-      "Sensors & Data": ["BMS VAV sensors", "RTU sensors", "WiFi device count", "Weather API"],
-      "Architecture": ["Multi-threaded edge hubs", "CVC coordinator", "Scenario injection"],
-      "Alerting": ["Telegram Bot API", "Dashboard (Tkinter)", "JSONL event logging"]
+      "Edge AI": ["Ollama llama3.2", "Active Inference (IAIF)", "Python", "Threading"],
+      "Sensors & Data": ["BMS VAV + RTU sensors", "Cisco WiFi mock", "PoE switch mock", "Open-Meteo API"],
+      "Architecture": ["Signal Lookout (3 IAIF triggers)", "CVC coordinator", "12s sync window"],
+      "Alerting": ["Telegram Bot API (Pipeline A + B)", "JSONL event logging"]
     },
     "tags": [],
     "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
