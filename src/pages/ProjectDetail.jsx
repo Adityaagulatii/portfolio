@@ -79,140 +79,162 @@ export default function ProjectDetail() {
           )}
         </div>
 
-        {/* Top-level media */}
-        {project.gif && (
-          <div className="mb-6 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10`, maxWidth: project.gifMaxWidth || '100%' }}>
-            <img src={project.gif} alt="Demo" className="w-full h-auto block" />
-          </div>
-        )}
-        {project.showcaseImages?.length > 0 && (
-          <div className="mb-10 flex flex-col gap-4">
-            {project.showcaseImages.map((src, i) => (
-              <div key={i} className="overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
-                <img src={src} alt={`Showcase ${i + 1}`} className="w-full h-auto block" />
-              </div>
-            ))}
-          </div>
-        )}
+        {/* Mobile-only: compact action buttons below description */}
+        <div className="flex gap-3 flex-wrap mb-10 md:hidden">
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm px-4 py-2 border border-border rounded-sm text-muted">
+              GitHub ↗
+            </a>
+          )}
+          {project.demo && (
+            <a href={project.demo} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm px-4 py-2 text-white font-medium rounded-sm"
+              style={{ backgroundColor: color }}>
+              Live Demo ↗
+            </a>
+          )}
+        </div>
 
-        {/* Skills */}
-        {allSkills.length > 0 && (
-          <div className="mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Skills</p>
-            <div className="flex flex-wrap gap-2">
-              {allSkills.map(item => (
-                <span key={item} className="text-xs px-2.5 py-1 border border-border text-muted rounded-sm">{item}</span>
+        {/* Desktop-only: all visuals and detail */}
+        <div className="hidden md:block">
+
+          {/* Top-level media */}
+          {project.gif && (
+            <div className="mb-6 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10`, maxWidth: project.gifMaxWidth || '100%' }}>
+              <img src={project.gif} alt="Demo" className="w-full h-auto block" />
+            </div>
+          )}
+          {project.showcaseImages?.length > 0 && (
+            <div className="mb-10 flex flex-col gap-4">
+              {project.showcaseImages.map((src, i) => (
+                <div key={i} className="overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
+                  <img src={src} alt={`Showcase ${i + 1}`} className="w-full h-auto block" />
+                </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Highlights — for non-parts projects */}
-        {project.highlights?.length > 0 && (
-          <div className="mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-4">How it works</p>
-            <ul className="space-y-3">
-              {project.highlights.map((h, i) => (
-                <li key={i} className="flex gap-3 text-sm text-muted">
-                  <span className="mt-0.5 shrink-0 font-bold" style={{ color }}>→</span>
-                  {h}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Inspiration */}
-        {project.inspiration && (
-          <div className="mb-10 border-l-2 pl-6" style={{ borderColor: color }}>
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color }}>Inspiration</p>
-            <p className="text-muted text-sm leading-relaxed">{project.inspiration}</p>
-          </div>
-        )}
-
-        {/* Challenges */}
-        {project.challenges && (
-          <div className="mb-6 border-l-2 pl-6" style={{ borderColor: `${color}70` }}>
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">What I solved</p>
-            <p className="text-muted text-sm leading-relaxed">{project.challenges}</p>
-          </div>
-        )}
-
-        {/* Learnings */}
-        {project.learnings && (
-          <div className="mb-12 border-l-2 pl-6" style={{ borderColor: `${color}40` }}>
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">What I learned</p>
-            <p className="text-muted text-sm leading-relaxed">{project.learnings}</p>
-          </div>
-        )}
-
-        {/* Parts */}
-        {project.parts?.length > 0 && (
-          <div className="mb-10 flex flex-col gap-px rounded-sm overflow-hidden" style={{ background: `${color}20` }}>
-            {project.parts.map((part, i) => (
-              <div key={i} className="p-6 md:p-8" style={{ backgroundColor: 'rgba(255,255,255,0.75)' }}>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-7 h-7 text-white text-xs font-bold flex items-center justify-center shrink-0" style={{ backgroundColor: color }}>
-                    {i + 1}
-                  </span>
-                  <h3 className="font-bold text-dark">{part.label}</h3>
-                </div>
-                <p className="text-muted text-sm leading-relaxed mb-5">{part.summary}</p>
-                <ul className="space-y-2 mb-6">
-                  {part.bullets.map((b, j) => (
-                    <li key={j} className="flex gap-2 text-sm text-muted">
-                      <span className="mt-0.5 shrink-0" style={{ color }}>→</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex gap-3 flex-wrap">
-                  {part.github && (
-                    <a href={part.github} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 border rounded-sm transition-opacity hover:opacity-70"
-                      style={{ borderColor: `${color}40`, color }}>
-                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-                      </svg>
-                      GitHub
-                    </a>
-                  )}
-                  {part.demo && (
-                    <a href={part.demo} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-sm transition-opacity hover:opacity-80 text-white"
-                      style={{ backgroundColor: color }}>
-                      Live Demo ↗
-                    </a>
-                  )}
-                </div>
-
-                {part.gif && (
-                  <div className="mt-6 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
-                    <img src={part.gif} alt="Demo" className="w-full h-auto block" />
-                  </div>
-                )}
-
-                {part.showcaseImages?.length > 0 && (
-                  <div className={`mt-6 gap-3 ${part.showcaseImages.length > 2 ? 'grid grid-cols-1 sm:grid-cols-2' : 'flex flex-col'}`}>
-                    {part.showcaseImages.map((src, k) => (
-                      <div key={k} className="overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
-                        <img src={src} alt={`Result ${k + 1}`} className="w-full h-auto block" />
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {part.futurePlans && (
-                  <div className="mt-6 border-l-2 pl-4" style={{ borderColor: `${color}50` }}>
-                    <p className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted">Future Plans</p>
-                    <p className="text-muted text-sm leading-relaxed">{part.futurePlans}</p>
-                  </div>
-                )}
+          {/* Skills */}
+          {allSkills.length > 0 && (
+            <div className="mb-10">
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Skills</p>
+              <div className="flex flex-wrap gap-2">
+                {allSkills.map(item => (
+                  <span key={item} className="text-xs px-2.5 py-1 border border-border text-muted rounded-sm">{item}</span>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          )}
+
+          {/* Highlights */}
+          {project.highlights?.length > 0 && (
+            <div className="mb-10">
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-4">How it works</p>
+              <ul className="space-y-3">
+                {project.highlights.map((h, i) => (
+                  <li key={i} className="flex gap-3 text-sm text-muted">
+                    <span className="mt-0.5 shrink-0 font-bold" style={{ color }}>→</span>
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Inspiration */}
+          {project.inspiration && (
+            <div className="mb-10 border-l-2 pl-6" style={{ borderColor: color }}>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color }}>Inspiration</p>
+              <p className="text-muted text-sm leading-relaxed">{project.inspiration}</p>
+            </div>
+          )}
+
+          {/* Challenges */}
+          {project.challenges && (
+            <div className="mb-6 border-l-2 pl-6" style={{ borderColor: `${color}70` }}>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">What I solved</p>
+              <p className="text-muted text-sm leading-relaxed">{project.challenges}</p>
+            </div>
+          )}
+
+          {/* Learnings */}
+          {project.learnings && (
+            <div className="mb-12 border-l-2 pl-6" style={{ borderColor: `${color}40` }}>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-muted">What I learned</p>
+              <p className="text-muted text-sm leading-relaxed">{project.learnings}</p>
+            </div>
+          )}
+
+          {/* Parts */}
+          {project.parts?.length > 0 && (
+            <div className="mb-10 flex flex-col gap-px rounded-sm overflow-hidden" style={{ background: `${color}20` }}>
+              {project.parts.map((part, i) => (
+                <div key={i} className="p-6 md:p-8" style={{ backgroundColor: 'rgba(255,255,255,0.75)' }}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="w-7 h-7 text-white text-xs font-bold flex items-center justify-center shrink-0" style={{ backgroundColor: color }}>
+                      {i + 1}
+                    </span>
+                    <h3 className="font-bold text-dark">{part.label}</h3>
+                  </div>
+                  <p className="text-muted text-sm leading-relaxed mb-5">{part.summary}</p>
+                  <ul className="space-y-2 mb-6">
+                    {part.bullets.map((b, j) => (
+                      <li key={j} className="flex gap-2 text-sm text-muted">
+                        <span className="mt-0.5 shrink-0" style={{ color }}>→</span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex gap-3 flex-wrap">
+                    {part.github && (
+                      <a href={part.github} target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 border rounded-sm transition-opacity hover:opacity-70"
+                        style={{ borderColor: `${color}40`, color }}>
+                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                        </svg>
+                        GitHub
+                      </a>
+                    )}
+                    {part.demo && (
+                      <a href={part.demo} target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-sm transition-opacity hover:opacity-80 text-white"
+                        style={{ backgroundColor: color }}>
+                        Live Demo ↗
+                      </a>
+                    )}
+                  </div>
+
+                  {part.gif && (
+                    <div className="mt-6 overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
+                      <img src={part.gif} alt="Demo" className="w-full h-auto block" />
+                    </div>
+                  )}
+
+                  {part.showcaseImages?.length > 0 && (
+                    <div className={`mt-6 gap-3 ${part.showcaseImages.length > 2 ? 'grid grid-cols-1 sm:grid-cols-2' : 'flex flex-col'}`}>
+                      {part.showcaseImages.map((src, k) => (
+                        <div key={k} className="overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
+                          <img src={src} alt={`Result ${k + 1}`} className="w-full h-auto block" />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {part.futurePlans && (
+                    <div className="mt-6 border-l-2 pl-4" style={{ borderColor: `${color}50` }}>
+                      <p className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted">Future Plans</p>
+                      <p className="text-muted text-sm leading-relaxed">{part.futurePlans}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>{/* end desktop-only */}
 
         {/* More projects */}
         <div className="border-t pt-12" style={{ borderColor: `${color}30` }}>
