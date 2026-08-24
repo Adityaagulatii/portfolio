@@ -3,7 +3,7 @@
     "id": "image-forensics",
     "color": "#ef4444",
     "title": "Physics-Based AI Video Detection",
-    "tagline": "Catching AI-generated video with physical laws — no classifier, no training data",
+    "tagline": "Detects AI video via Snell's law + Moiré geometry — no classifier, no training data",
     "emoji": "🔬",
     "description": "A proof-of-concept forensics system that detects AI-generated video using physical laws rather than learned classifiers. Two passive props placed in the scene — a drinking glass and a printed fringe board — each impose a hard geometric constraint that real video must satisfy and AI video consistently fails.",
     "longDescription": "Tested against Kling AI on the same scene: Snell refraction score 0.862 (authentic threshold ≥0.88), Moiré phase std 0.360 rad (authentic threshold ≤0.04 rad), yielding an overall AI GENERATED verdict. 36% of frames flagged AI GENERATED, 57% UNCERTAIN, 7% AUTHENTIC. Research in progress — aiming for CVPR 2027.",
@@ -70,7 +70,7 @@
     "id": "wayfinderai",
     "color": "#3b82f6",
     "title": "WayfinderAI",
-    "tagline": "AI-powered indoor navigation — no GPS, just vision",
+    "tagline": "Won Hack@URI + Yconic · 100% graph connectivity, no GPS, no beacons",
     "emoji": "🗺️",
     "description": "Two separate systems built toward the same goal: navigating indoor spaces without GPS, beacons, or custom hardware. Part 1 fine-tunes a vision-language model to read floor plans and output navigation graphs. Part 2 guides users through a real Kroger store using only the Kroger API, a phone camera, and local LLMs.",
     "parts": [
@@ -84,20 +84,26 @@
           "Baseline evaluation: direction similarity 0.746, plain English score 0.950, graph connectivity 100% — 8/15 inference successes (OOM crashes on remaining)",
           "GRPO reward-based fine-tuning produced valid navigation graph JSON more reliably than supervised fine-tuning alone"
         ],
+        "media": [
+          { "src": "/images/projects/wayfinder-sample-output.jpg", "caption": "Navigation graph overlaid on floor plan — color-coded edges (Yellow=Straight, Blue=Left, Red=Right, Cyan=Side) and LLaMA-generated turn-by-turn instructions at the bottom" }
+        ],
         "showcaseImages": [
-          "/images/projects/wayfinder-sample-output.jpg",
-          "/images/projects/wayfinder-eval-06.png",
-          "/images/projects/wayfinder-eval-04.png",
-          "/images/projects/wayfinder-eval-05.png",
           "/images/projects/wayfinder-eval-01.png",
           "/images/projects/wayfinder-eval-02.png",
-          "/images/projects/wayfinder-eval-03.png"
+          "/images/projects/wayfinder-eval-03.png",
+          "/images/projects/wayfinder-eval-04.png",
+          "/images/projects/wayfinder-eval-05.png",
+          "/images/projects/wayfinder-eval-06.png"
         ]
       },
       {
         "label": "Part 2 — Kroger Grocery Navigation App",
         "github": "https://github.com/Adityaagulatii/wayfinderai",
-        "gif": "/images/projects/wayfinderai-map.png",
+        "media": [
+          { "src": "/images/projects/wayfinder-app-walkthrough.gif", "caption": "Full app walkthrough — natural language shopping input to aisle-by-aisle shelf directions" },
+          { "src": "/images/projects/wayfinder-ocr-demo.gif", "caption": "EasyOCR reads physical aisle signs every 5th frame to confirm real-world location" },
+          { "src": "/images/projects/wayfinder-aruco-demo.gif", "caption": "ArUco marker detection — optical flow fallback when OCR confidence drops" }
+        ],
         "summary": "Five sequential functions guide users through a Kroger store — from natural language shopping input to real-time shelf-position guidance — using only the Kroger Developer API. No beacons, no GPS. Won 1st Place at Hack@URI AI Track (30+ teams).",
         "bullets": [
           "Step 1: Kroger API → NetworkX graph (34 aisles, 110+ connections) built in <0.15s",
@@ -126,7 +132,7 @@
     "id": "apex-ai",
     "color": "#f97316",
     "title": "Apex AI",
-    "tagline": "Vision-only AI race engineer — no sensors, just video",
+    "tagline": "Won Twelve Labs + Cursor · cut lap times 0.75s from onboard video, no telemetry",
     "emoji": "🏎️",
     "description": "AI race engineer that watches an onboard karting or motorcycle lap and delivers structured coaching — timestamped mistakes, best moments, sector scores, and lap time loss estimates. Built in two versions: one cloud-powered, one fully local.",
     "inspiration": "Most teams at the hackathon were executing familiar ideas and hoping implementation quality would win. I wanted to work on something I actually cared about — Formula 1. Race engineers extract insight from sensor telemetry; I wanted to do the same thing from video alone, with no hardware. That's where Apex AI came from.",
@@ -180,7 +186,7 @@
     "id": "edge-ai-multisensor",
     "color": "#10b981",
     "title": "Edge AI Multisensor System",
-    "tagline": "Two-level edge AI for building HVAC — 5 hub threads, local LLMs, no cloud",
+    "tagline": "120× faster overheating response — 5 hub threads, local LLMs, no cloud",
     "emoji": "⚡",
     "description": "A two-level edge AI system for building HVAC management. Five parallel hub threads each monitor a dedicated zone using real BMS sensor data and three IAIF triggers to classify anomalies. A Central Validation Coordinator aggregates all hub reports and escalates cross-zone faults via Telegram — all AI runs locally via Ollama, no data leaves the building.",
     "inspiration": "Most commercial edge AI hubs already use LLMs — but only to present data. The actual fault detection still runs on hard thresholds written by engineers: if temp > X, flag it. I wanted to build something that could reason about whether a reading is actually anomalous in context, not just compare it to a number someone set during installation. The IAIF architecture gave me a framework for that — each hub maintains a belief state about its zone and updates it continuously, so the system detects divergence from expected behavior rather than just threshold violations.",
@@ -219,7 +225,7 @@
       "Alerting": ["Telegram Bot API (Pipeline A + B)", "JSONL event logging"]
     },
     "tags": [],
-    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    "image": "",
     "github": "https://github.com/Adityaagulatii/edge_ai",
     "demo": "",
     "featured": true
@@ -228,7 +234,7 @@
     "id": "intelligent-robot",
     "color": "#a855f7",
     "title": "Intelligent Follow-Me Robot",
-    "tagline": "Person-following robot — Android phone as the only sensor, no GPU",
+    "tagline": "Tracks and reacquires a person through occlusion — YOLO + ReID + Kalman, zero GPU",
     "emoji": "🤖",
     "description": "A person-following robot that uses an Android phone as its only sensor — snapshot-polling video and streaming IMU data over WiFi to a Flask server running the full vision pipeline entirely on CPU. The server sends BLE motor commands to an Elegoo UNO R4 WiFi robot in real time.",
     "longDescription": "Each frame goes through YOLO26n detection, 3-zone MobileNetV2 ReID (head/upper/lower body embeddings + HSV histograms + gait), IoU-matched identity across frames, KCF tracking between YOLO frames, and Kalman smoothing. A visual odometry module tracks heading and yaw drift per frame. Every command requires 2-frame confirmation before firing. A 3-stage safety pipeline gates all output. When the target is lost, gyro-integrated search sweeps drive re-acquisition.",
@@ -251,7 +257,7 @@
     "tags": [],
     "gif": "/images/projects/robot-demo.gif",
     "gifMaxWidth": "600px",
-    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
+    "image": "/images/projects/robot-demo.gif",
     "github": "https://github.com/Adityaagulatii/follow_me_robot",
     "demo": "",
     "featured": true
@@ -260,7 +266,7 @@
     "id": "star-tracker",
     "color": "#06b6d4",
     "title": "Star Tracker CNN",
-    "tagline": "Benchmarking U-Net architectures for star detection under CubeSat constraints",
+    "tagline": "91% detection accuracy, 3.86× INT8 compression — ELUNet star tracker for Raspberry Pi",
     "emoji": "🔭",
     "description": "Research project benchmarking three U-Net architectures for star detection and sub-pixel centroid localisation on real DSS2 sky images, under strict CubeSat constraints: model size, inference speed, and accuracy all matter equally.",
     "longDescription": "Trained and evaluated UNet (482K params), MobileUNet (255K params), and ELUNet (60K params) on 250 real 256×256 sky images from NASA SkyView's DSS2 Red Survey. ELUNet uses a dual-channel output head — segmentation + distance map regression — enabling trilateration-based sub-pixel centroiding. INT8 quantization compresses ELUNet from 232 KB to 60 KB with less than 0.003 F1 loss, making it the strongest candidate for Raspberry Pi deployment.",

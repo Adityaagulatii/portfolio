@@ -1,13 +1,13 @@
 [
   {
-    "id": "hackuri",
+    "id": "cursor",
     "type": "award",
-    "title": "1st Place — Hack@URI AI Track",
-    "project": "WayfinderAI",
-    "projectId": "wayfinderai",
-    "date": "Mar. 2026",
-    "detail": "30+ competing teams. Built a 5-step indoor navigation system for Kroger stores using only the Kroger API, EasyOCR, and YOLO-World — no beacons, no GPS.",
-    "color": "#3b82f6"
+    "title": "1st Place — Cursor Hackathon",
+    "project": "Apex AI",
+    "projectId": "apex-ai",
+    "date": "May 2026",
+    "detail": "Built an offline, fully local AI race engineer using motion detection, lightweight vision models, and a local language model — no cloud dependency, no sensor telemetry.",
+    "color": "#f97316"
   },
   {
     "id": "twelvelabs",
@@ -18,6 +18,26 @@
     "date": "Apr. 2026",
     "detail": "Northeastern University. Built an AI race engineer that delivers structured lap coaching — timestamped mistakes, sector scores, and lap time loss estimates — from onboard video alone.",
     "color": "#f97316"
+  },
+  {
+    "id": "yconic",
+    "type": "award",
+    "title": "1st Place — Yconic Hackathon",
+    "project": "WayfinderAI",
+    "projectId": "wayfinderai",
+    "date": "Mar. 2026",
+    "detail": "Built a hardware-free indoor navigation system converting floor plans into navigation graphs, enabling turn-by-turn shelf guidance for visually impaired shoppers — no BLE beacons, no GPS.",
+    "color": "#3b82f6"
+  },
+  {
+    "id": "hackuri",
+    "type": "award",
+    "title": "1st Place — Hack@URI AI Track",
+    "project": "WayfinderAI",
+    "projectId": "wayfinderai",
+    "date": "Feb. 2026",
+    "detail": "30+ competing teams. Built a 5-step indoor navigation system for Kroger stores using only the Kroger API, EasyOCR, and YOLO-World — no beacons, no GPS.",
+    "color": "#3b82f6"
   },
   {
     "id": "cvpr",

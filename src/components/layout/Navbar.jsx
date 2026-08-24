@@ -11,7 +11,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (pathname !== '/') return
-    const ids = ['projects', 'experience', 'contact']
+    const ids = ['recognition', 'projects', 'experience', 'contact']
     const observers = ids.map(id => {
       const el = document.getElementById(id)
       if (!el) return null
@@ -36,7 +36,7 @@ export default function Navbar() {
 
       {isHome && (
         <div className="flex items-center gap-6 md:gap-8 text-sm text-muted">
-          {['projects', 'recognition', 'experience', 'contact'].map(id => (
+          {['recognition', 'projects', 'experience', 'contact'].map(id => (
             <button
               key={id}
               onClick={() => scrollTo(id)}

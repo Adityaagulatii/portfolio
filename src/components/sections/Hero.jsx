@@ -12,10 +12,10 @@ export default function Hero() {
         </h1>
 
         <p className="text-dark text-lg md:text-xl max-w-lg leading-relaxed mb-3 font-medium">
-          Computer Vision & Robotics · Seeking co-op for January 2027
+          Computer Vision & Robotics · 4× Hackathon Winner
         </p>
         <p className="text-muted text-base max-w-xl leading-relaxed mb-12">
-          B.Sc. Statistics & Mathematics, University of Toronto. Previously a Data Analyst and GIS Analyst in Toronto. Now completing a Master's in Artificial Intelligence at Northeastern University.
+          Master's in Artificial Intelligence at Northeastern University. Building computer vision systems, robots, and edge-deployed AI. Previously a Data Analyst and GIS Analyst in Toronto.
         </p>
 
         <div className="flex flex-wrap items-center gap-4 text-sm mb-16">
