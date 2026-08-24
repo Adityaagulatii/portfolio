@@ -1,0 +1,42 @@
+[
+  {
+    "id": "hackuri",
+    "type": "award",
+    "title": "1st Place — Hack@URI AI Track",
+    "project": "WayfinderAI",
+    "projectId": "wayfinderai",
+    "date": "Mar. 2026",
+    "detail": "30+ competing teams. Built a 5-step indoor navigation system for Kroger stores using only the Kroger API, EasyOCR, and YOLO-World — no beacons, no GPS.",
+    "color": "#3b82f6"
+  },
+  {
+    "id": "twelvelabs",
+    "type": "award",
+    "title": "1st Place — Twelve Labs Computer Vision Hackathon",
+    "project": "Apex AI",
+    "projectId": "apex-ai",
+    "date": "Apr. 2026",
+    "detail": "Northeastern University. Built an AI race engineer that delivers structured lap coaching — timestamped mistakes, sector scores, and lap time loss estimates — from onboard video alone.",
+    "color": "#f97316"
+  },
+  {
+    "id": "cvpr",
+    "type": "research",
+    "title": "Research in Progress — Physics-Based AI Video Detection",
+    "project": "Image Forensics",
+    "projectId": "image-forensics",
+    "date": "Targeting CVPR 2027",
+    "detail": "Proof-of-concept forensics system that catches AI-generated video using Snell's law and Moiré fringe geometry — no classifier, no training data. Tested against Kling AI.",
+    "color": "#ef4444"
+  },
+  {
+    "id": "satellite",
+    "type": "research",
+    "title": "Research — CubeSat Star Tracker CNN",
+    "project": "Star Tracker CNN",
+    "projectId": "star-tracker",
+    "date": "Jan. 2026 — Present",
+    "detail": "Northeastern Satellite Lab. Benchmarking U-Net architectures for sub-pixel star centroid localisation under CubeSat power and size constraints, targeting Raspberry Pi deployment.",
+    "color": "#06b6d4"
+  }
+]

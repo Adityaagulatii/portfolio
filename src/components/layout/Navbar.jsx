@@ -36,7 +36,7 @@ export default function Navbar() {
 
       {isHome && (
         <div className="flex items-center gap-6 md:gap-8 text-sm text-muted">
-          {['projects', 'experience', 'contact'].map(id => (
+          {['projects', 'recognition', 'experience', 'contact'].map(id => (
             <button
               key={id}
               onClick={() => scrollTo(id)}

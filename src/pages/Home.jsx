@@ -1,5 +1,6 @@
 import Hero from '../components/sections/Hero'
 import ProjectsGrid from '../components/sections/ProjectsGrid'
+import Recognition from '../components/sections/Recognition'
 import Experience from '../components/sections/Experience'
 import Contact from '../components/sections/Contact'
 
@@ -15,6 +16,7 @@ export default function Home() {
     >
       <Hero />
       <ProjectsGrid />
+      <Recognition />
       <Experience />
       <Contact />
     </main>
