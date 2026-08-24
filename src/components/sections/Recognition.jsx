@@ -24,12 +24,6 @@ export default function Recognition() {
                 <span className="text-sm text-muted shrink-0 font-mono">{item.date}</span>
               </div>
               <div className="flex items-center gap-2 mb-4">
-                <span
-                  className="text-xs font-mono px-2 py-0.5 rounded-sm"
-                  style={{ color: item.color, backgroundColor: `${item.color}15`, border: `1px solid ${item.color}30` }}
-                >
-                  {item.type === 'award' ? 'Award' : 'Research'}
-                </span>
                 <Link
                   to={`/project/${item.projectId}`}
                   className="text-sm font-medium transition-colors hover:underline"
