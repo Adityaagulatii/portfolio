@@ -1,5 +1,72 @@
 [
   {
+    "id": "image-forensics",
+    "color": "#ef4444",
+    "title": "Physics-Based AI Video Detection",
+    "tagline": "Catching AI-generated video with physical laws — no classifier, no training data",
+    "emoji": "🔬",
+    "description": "A proof-of-concept forensics system that detects AI-generated video using physical laws rather than learned classifiers. Two passive props placed in the scene — a drinking glass and a printed fringe board — each impose a hard geometric constraint that real video must satisfy and AI video consistently fails.",
+    "longDescription": "Tested against Kling AI on the same scene: Snell refraction score 0.862 (authentic threshold ≥0.88), Moiré phase std 0.360 rad (authentic threshold ≤0.04 rad), yielding an overall AI GENERATED verdict. 36% of frames flagged AI GENERATED, 57% UNCERTAIN, 7% AUTHENTIC. Research in progress — aiming for CVPR 2027.",
+    "highlights": [
+      "No training data, no classifier, no learning — detection is purely geometric constraint checking",
+      "Auto-mode switching: reads gyroscope in real time, uses Totem (still camera) or Moiré (moving camera) automatically",
+      "Totem: Snell's law (n=1.5 glass, n=1.0 air) predicts exact refraction geometry — AI video scores drop and become erratic across frames",
+      "Moiré board: ArUco marker tracking constrains fringe phase shift to camera displacement — AI video hallucinates phase variance uncorrelated with motion",
+      "Sliding-window Pearson correlation classifies per-window as REAL / UNCERTAIN / AI GENERATED with confidence score",
+      "Extensible — same principle applies to shadow geometry, specular reflection, fluid dynamics, any scene element with known physics"
+    ],
+    "inspiration": "Every existing AI video detector I could find is a classifier trained on a dataset of real vs AI videos. That approach has a fundamental problem: it chases the output of current models and goes stale as generators improve. I wanted something based on a constraint that can't be learned away — physics. A glass refracts light by Snell's law regardless of how good the generator gets. That law doesn't change with a model update.",
+    "challenges": "The hardest part was making the Moiré phase measurement robust to real-world noise. Camera shake, slight prop movement, and compression artifacts all add phase variance that looks like a detection signal. The solution was incremental phase tracking (frame-to-frame deltas instead of absolute phase) combined with ArUco optical flow fallback when marker detection drops out — reducing false positive rate significantly.",
+    "learnings": "The most surprising finding was how inconsistent the UNCERTAIN band is. A frame-by-frame verdict flips between AI GENERATED and UNCERTAIN on the Kling output, which itself is a signal — authentic video produces stable scores, AI video produces unstable ones. The variance of the score distribution may be more diagnostic than the score itself.",
+    "futurePlans": "Extend to shadow geometry (rigid object + known light source = fixed shadow angle), specular reflection (mirror must obey angle of incidence), and fluid dynamics (water ripple frequency set by surface tension + depth). Goal: a single passive prop kit that covers still camera, moving camera, and changing light — any one check failing raises a flag.",
+    "parts": [
+      {
+        "label": "Part 1 — The Totem (Still Camera)",
+        "summary": "A drinking glass placed in the scene acts as a refractive lens. Real video shows background refracted through the curved glass surface exactly as Snell's law predicts (n=1.5 glass, n=1.0 air). AI video generating pixels frame-by-frame cannot consistently reproduce this geometry — the refraction score drops and becomes erratic.",
+        "bullets": [
+          "Detects the glass ellipse via Hough transform on each frame, fits the refractive boundary",
+          "Samples pixel pairs inside vs outside the glass boundary, computes Snell consistency score per frame",
+          "Authentic video: stable score ≥0.88 across frames (measured 0.91 and 0.94 on two real clips)",
+          "Kling AI output on same scene: score 0.862 (WARN) — drops toward the injection threshold of <0.70",
+          "Runs frame-by-frame with no pre-training — threshold values derived from the physics, not from data"
+        ],
+        "showcaseImages": [
+          "/images/projects/forensics-totem-real.jpg",
+          "/images/projects/forensics-setup.jpg"
+        ]
+      },
+      {
+        "label": "Part 2 — The Board (Moving Camera)",
+        "summary": "A printed fringe pattern with ArUco tracking markers placed alongside the glass. When the camera moves, the phase of the fringe pattern must shift in exact proportion to camera displacement — a hard geometric constraint. AI video hallucinates fringe movement uncorrelated with camera motion, causing phase variance to spike.",
+        "bullets": [
+          "ArUco marker detection + optical flow fallback tracks marker positions on every frame",
+          "Warps the board region to original resolution using corner distances (no resize artifact) for accurate phase measurement",
+          "Tracks fringe phase incrementally (frame-to-frame deltas) to avoid periodic boundary jumps",
+          "Sliding-window Pearson correlation between camera displacement and phase shift classifies each window",
+          "Authentic video: phase std ≤0.04 rad; Kling AI output: 0.360 rad (9× over threshold) → FAIL"
+        ],
+        "showcaseImages": [
+          "/images/projects/forensics-moire-real.jpg",
+          "/images/projects/forensics-kling.jpg"
+        ]
+      }
+    ],
+    "techBreakdown": {
+      "Computer Vision": ["OpenCV", "ArUco markers", "Hough transform", "Optical flow"],
+      "Signal Processing": ["Moiré fringe phase analysis", "Pearson correlation", "Sliding window"],
+      "Physics": ["Snell's law (refraction)", "Fringe phase geometry", "Gyroscope motion gating"],
+      "Stack": ["Python", "NumPy", "SciPy", "Matplotlib"]
+    },
+    "tags": [],
+    "gif": "/images/projects/forensics-setup.jpg",
+    "gifMaxWidth": "700px",
+    "image": "/images/projects/forensics-kling.jpg",
+    "github": "https://github.com/Adityaagulatii/image_forensics",
+    "demo": "",
+    "featured": true,
+    "hackathon": "Research · Targeting CVPR 2027"
+  },
+  {
     "id": "wayfinderai",
     "color": "#3b82f6",
     "title": "WayfinderAI",
