@@ -28,12 +28,6 @@ export default function ProjectCard({ project }) {
             style={{ color: hovered ? `${color}cc` : '#888888' }}>
             {project.tagline}
           </p>
-          {project.hackathon && (
-            <span className="inline-block mt-3 text-xs font-mono px-2 py-0.5 rounded-sm"
-              style={{ color, backgroundColor: `${color}15`, border: `1px solid ${color}30` }}>
-              {project.hackathon}
-            </span>
-          )}
         </div>
 
         <div

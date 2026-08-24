@@ -42,12 +42,6 @@ export default function ProjectDetail() {
           <div>
             <h1 className="text-4xl md:text-5xl font-black text-dark tracking-tight mb-3">{project.title}</h1>
             <p className="text-lg font-medium" style={{ color }}>{project.tagline}</p>
-            {project.hackathon && (
-              <span className="inline-block mt-3 text-xs font-mono px-2 py-0.5 rounded-sm"
-                style={{ color, backgroundColor: `${color}15`, border: `1px solid ${color}30` }}>
-                {project.hackathon}
-              </span>
-            )}
           </div>
           <div className="flex gap-3 shrink-0">
             {project.github && (
