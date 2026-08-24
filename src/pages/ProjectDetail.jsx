@@ -35,7 +35,7 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen animate-fade-in" style={{ backgroundColor: `${color}0c` }}>
-      <div className="px-8 md:px-16 lg:px-20 py-16 max-w-5xl mx-auto">
+      <div className="px-8 md:px-16 lg:px-20 py-16">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-8 pt-8">
