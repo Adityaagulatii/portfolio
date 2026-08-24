@@ -12,7 +12,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-dark text-lg md:text-xl max-w-lg leading-relaxed mb-3 font-medium">
-          Computer Vision & Robotics · 4× Hackathon Winner
+          Computer Vision & Robotics
         </p>
         <p className="text-muted text-base max-w-xl leading-relaxed mb-12">
           Master's in Artificial Intelligence at Northeastern University. Building computer vision systems, robots, and edge-deployed AI. Previously a Data Analyst and GIS Analyst in Toronto.
