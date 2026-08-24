@@ -15,8 +15,8 @@ export default function Home() {
       }}
     >
       <Hero />
-      <Recognition />
       <ProjectsGrid />
+      <Recognition />
       <Experience />
       <Contact />
     </main>
