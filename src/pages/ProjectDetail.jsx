@@ -223,7 +223,7 @@ export default function ProjectDetail() {
                   )}
 
                   {part.showcaseImages?.length > 0 && (
-                    <div className={`mt-6 gap-3 ${part.showcaseImages.length > 2 ? 'grid grid-cols-1 sm:grid-cols-2' : 'flex flex-col'}`}>
+                    <div className={`mt-6 gap-3 ${part.showcaseImages.length > 1 ? 'grid grid-cols-1 sm:grid-cols-2' : 'flex flex-col'}`}>
                       {part.showcaseImages.map((src, k) => (
                         <div key={k} className="overflow-hidden rounded-sm" style={{ backgroundColor: `${color}10` }}>
                           <img src={src} alt={`Result ${k + 1}`} className="w-full h-auto block" />
