@@ -25,18 +25,8 @@
     "role": "GIS Analyst",
     "period": "Apr 2024 – Sept 2025",
     "emoji": "🌍",
-    "description": "Built an ArcGIS Pro toolkit using SVM-based land classification and regression-based property valuation across 5+ urban districts, cutting manual climate risk assessment time by ~40%. Applied spatiotemporal clustering to vegetation, heat index, and emergency route data across 3 regions, producing prioritized risk maps adopted by city planning teams.",
-    "tags": ["ArcGIS Pro", "Python", "SVM", "Spatiotemporal Clustering", "GIS"],
-    "logo": ""
-  },
-  {
-    "id": "openlane",
-    "company": "Openlane",
-    "role": "Data Analyst",
-    "period": "Oct 2022 – Mar 2024",
-    "emoji": "📊",
-    "description": "Engineered ML-based data cleaning pipelines in Python using regression and KNN across 100,000+ records, raising dataset quality from 80% to 95%. Managed CRM workflows and data validation across 10+ major client accounts, contributing to 30% business growth through improved data reliability.",
-    "tags": ["Python", "Regression", "KNN", "SQL", "Pandas", "CRM"],
+    "description": "Automated neighborhood-level climate risk assessment by building spatial fusion pipelines that combined temperature, precipitation, and topography sensor data into unified risk maps — cutting manual review time by ~40%, applying the same multi-source fusion and spatial reasoning that underlies robotic environment perception. Identified gaps in Ontario's emergency health infrastructure by designing a graph-based reachability and coverage planner over road networks — the same spatial graph reasoning used in autonomous navigation and coverage path planning.",
+    "tags": ["Python", "ArcGIS Pro", "Spatial Fusion", "Graph-Based Planning", "GIS", "Coverage Planning"],
     "logo": ""
   },
   {
